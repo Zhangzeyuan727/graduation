@@ -4,6 +4,7 @@
     <mt-field label="用户名" placeholder="请输入用户名" v-model="user.name"></mt-field>
     <mt-field label="密码" placeholder="请输入密码" type="password" v-model="user.pwd"></mt-field>
     <div class="loginBtn" @click="goRegister">注册</div>
+    <div @click="goBack">返回</div>
   </div>
 </template>
 
@@ -20,35 +21,48 @@ export default {
   },
   methods: {
     goRegister() {
-      this.$http
-        .userRegister({
-          name: this.user.name,
-          password: this.user.pwd
-        })
-        .then(res => {
-          if (res.data.statusCode == 1) {
-            //查询用户将用户信息保存至本地
-            this.$http
-              .userLogin({
-                name: this.user.name,
-                password: this.user.pwd
-              })
-              .then(res => {
-                if (res.data.statusCode == 1) {
-                  this.user.uid = res.data.results;
-                  //将用户信息保存至本地
-                  localStorage.setItem("userInfo", JSON.stringify(this.user));
-                  this.$toast({
-                    message: "注册成功",
-                    duration: 3000
-                  });
-                  setTimeout(() => {
-                    this.$router.push({ path: this.$route.query.from });
-                  }, 3000);
-                }
+      if (this.user.name && this.user.pwd) {
+        this.$http
+          .userRegister({
+            name: this.user.name,
+            password: this.user.pwd
+          })
+          .then(res => {
+            if (res.data.statusCode == 1) {
+              //查询用户将用户信息保存至本地
+              this.$http
+                .userLogin({
+                  name: this.user.name,
+                  password: this.user.pwd
+                })
+                .then(res => {
+                  if (res.data.statusCode == 1) {
+                    this.user.uid = res.data.results;
+                    //将用户信息保存至本地
+                    localStorage.setItem("userInfo", JSON.stringify(this.user));
+                    this.$toast({
+                      message: "注册成功",
+                      duration: 3000
+                    });
+                    setTimeout(() => {
+                      this.$router.push({ path: this.$route.query.from });
+                    }, 3000);
+                  }
+                });
+            } else if (res.data.statusCode == -1) {
+              this.$toast({
+                message: "用户名已注册"
               });
-          }
+            }
+          });
+      } else {
+        this.$toast({
+          message: "用户名密码不能为空"
         });
+      }
+    },
+    goBack() {
+      this.$router.go(-1);
     }
   }
 };

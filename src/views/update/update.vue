@@ -1,9 +1,9 @@
 <template>
   <div id="update">
-    <div class="title">修改用户信息</div>
-    <el-input v-model="user.name" placeholder="请输入新的用户名"></el-input>
-    <el-input v-model="user.pwd" type="password" placeholder="请输入新的密码"></el-input>
-    <div @click="goUpdate">确认修改</div>
+    <div class="logo"></div>
+    <el-input v-model="user.name" placeholder="UserName"></el-input>
+    <el-input v-model="user.pwd" type="password" placeholder="Password"></el-input>
+    <div class="confirm" @click="goUpdate">confirm</div>
   </div>
 </template>
 <script>
@@ -46,13 +46,33 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  .title {
-    height: 48px;
-    box-sizing: border-box;
-    border-bottom: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-image: url('../.././assets/bg/bg-01.jpg');
+  background-size: 100% 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  justify-content: center; 
+  .el-input__inner {
+    width: 90%;
+    height: 7vh;
+    margin-left: 5%;
+    border: none;
+    border-bottom: 1px solid #eee;
+    color: rgba(0, 0, 0, .2);
+    padding: 0;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, .1);
+  }
+  .confirm {
+    color: rgba(0, 0, 0, .2);
+    width: 90%;
+    margin-left: 5%;
+    text-align: center;
+    height: 7vh;
+    line-height: 7vh;
+    border: 1px solid #eee;
+    margin-top: 20px;
   }
 }
 </style>

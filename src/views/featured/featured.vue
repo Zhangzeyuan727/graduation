@@ -16,7 +16,7 @@
             text-color="#999"
             score-template="{value}"
           ></el-rate>
-          <div class="description">{{item.description}}</div>
+          <div class="description" style="-webkit-box-orient: vertical;">{{item.description}}</div>
           <div class="btn">
             <button @click="goDetail(item.id)">了解更多</button>
           </div>
@@ -172,12 +172,13 @@ export default {
         .btn {
           text-align: center;
           button {
-            width: 100px;
-            height: 30px;
+            width: 120px;
+            height: 40px;
             border: 1px solid#91B493;
             color: #91b493;
             border-radius: 18px;
             margin: 20px 0;
+            font-size: 14px;
           }
         }
       }

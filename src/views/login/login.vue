@@ -5,6 +5,7 @@
     <mt-field label="密码" placeholder="请输入密码" type="password" v-model="user.pwd"></mt-field>
     <div class="loginBtn" @click="goLogin">登录</div>
     <div class="loginBtn" @click="goRegister">注册</div>
+    <div @click="goBack">返回</div>
   </div>
 </template>
 
@@ -15,7 +16,7 @@ export default {
       user: {
         name: "",
         pwd: "",
-        uid:''
+        uid: ""
       }
     };
   },
@@ -26,30 +27,39 @@ export default {
   },
   methods: {
     goLogin() {
-      this.$http
-        .userLogin({
-          name: this.user.name,
-          password: this.user.pwd
-        })
-        .then(res => {
-          if (res.data.statusCode == 3) {
-            this.$toast({
-              message: res.data.error
-            });
-          }
-          if (res.data.statusCode == 1) {
-            this.user.uid=res.data.results;
-            //将用户信息保存至本地
-            localStorage.setItem("userInfo", JSON.stringify(this.user));
-            this.$router.push({ path: this.$route.query.from });
-          }
+      if (this.user.name && this.user.pwd) {
+        this.$http
+          .userLogin({
+            name: this.user.name,
+            password: this.user.pwd
+          })
+          .then(res => {
+            if (res.data.statusCode == 3) {
+              this.$toast({
+                message: res.data.error
+              });
+            }
+            if (res.data.statusCode == 1) {
+              this.user.uid = res.data.results;
+              //将用户信息保存至本地
+              localStorage.setItem("userInfo", JSON.stringify(this.user));
+              this.$router.push({ path: this.$route.query.from });
+            }
+          });
+      } else {
+        this.$toast({
+          message: "用户名密码不能为空"
         });
+      }
     },
     goRegister() {
       this.$router.push({
         path: "/register",
         query: { from: this.$route.query.from }
       });
+    },
+    goBack() {
+      this.$router.go(-1);
     }
   }
 };

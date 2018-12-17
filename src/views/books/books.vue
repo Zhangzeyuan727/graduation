@@ -20,7 +20,7 @@
         <div class="bookInfo">
           <p>{{item.name}}</p>
           <p>{{item.author.name}}</p>
-          <p>{{item.description}}</p>
+          <p style="-webkit-box-orient: vertical;">{{item.description}}</p>
         </div>
       </div>
     </div>

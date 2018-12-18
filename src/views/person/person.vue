@@ -1,13 +1,55 @@
 <template>
   <div id="person">
-    <div class="header">关于我</div>
-    <div class="content">
-      <div class="personHead" @click="goLogin">
-        <img src="../../assets/login/default.png" alt>
-        <span v-if="user">{{user.name}}</span>
-        <span v-else>未登录</span>
+    <div class="header">
+      <div class="headerTop" v-if="user">
+        <img src="../../assets/login/login.jpeg" alt>
+        <span class="loginWord">{{user.name}}</span>
       </div>
-      <div @click="goUpdate">修改用户信息</div>
+      <div class="headerTop" @click="goLogin" v-else>
+        <img src="../../assets/login/default.jpeg" alt>
+        <span class="loginWord">请先登录</span>
+      </div>
+      <div class="headerContent">
+        <div>
+          <span class="iconfont icon-caidaniconshouyehui"></span>
+          <span class="personWord">我的作品</span>
+        </div>
+        <div>
+          <span class="iconfont icon-diamond24"></span>
+          <span class="personWord">我的收藏</span>
+        </div>
+        <div>
+          <span class="iconfont icon-bookshu"></span>
+          <span class="personWord">我的帖子</span>
+        </div>
+        <div>
+          <span class="iconfont icon-caidaniconwodehui"></span>
+          <span class="personWord">我的消息</span>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <div>
+        <div class="contentWord">
+          <span class="iconfont icon-diamond24"></span>
+          <span>个人设置</span>
+        </div>
+        <span class="iconfont icon-right"></span>
+      </div>
+      <div>
+        <div class="contentWord">
+          <span class="iconfont icon-diamond24"></span>
+          <span>关注我们</span>
+        </div>
+        <span class="iconfont icon-right"></span>
+      </div>
+      <div>
+        <div class="contentWord">
+          <span class="iconfont icon-diamond24"></span>
+          <span>退出登录</span>
+        </div>
+        <span class="iconfont icon-right"></span>
+      </div>
     </div>
   </div>
 </template>
@@ -32,10 +74,10 @@ export default {
       this.$router.push({ path: "/login", query: { from: "/person" } });
     },
     //修改用户信息
-    goUpdate(){
+    goUpdate() {
       this.$router.push({
-        path:'/update'
-      })
+        path: "/update"
+      });
     }
   }
 };
@@ -50,30 +92,76 @@ export default {
   bottom: 52px;
   overflow: hidden;
   .header {
-    text-align: center;
-    line-height: 48px;
     width: 100%;
-    height: 48px;
-    background-color: #bbd2c2;
-    color: white;
+    height: 30vh;
+    background-image: url(../../assets/person/bg.jpeg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    .headerTop {
+      margin-left: 5%;
+      padding-top: 4vh;
+      display: flex;
+      align-items: flex-start;
+      > img {
+        width: 18vw;
+        height: 18vw;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        margin-right: 20px;
+      }
+      .loginWord {
+        font-size: 18px;
+        color: #fff;
+        font-weight: bolder;
+        margin-top: 5px;
+      }
+    }
+    .headerContent {
+      background-color: #fff;
+      width: 90%;
+      height: 10vh;
+      position: absolute;
+      left: 5%;
+      bottom: 14px;
+      border-radius: 8px;
+      box-shadow: 0 0 2px 2px rgb(210, 210, 210);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      > div {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .personWord {
+          font-size: 13px;
+          margin-top: 4px;
+        }
+      }
+    }
   }
   .content {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 48px;
-    bottom: 0px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    .personHead {
-      height: 10vh;
-      display: flex;
+    > div {
+      height: 8vh;
       box-sizing: border-box;
-      border-bottom: 1px solid #ccc;
+      padding: 0 20px;
+      display: flex;
       align-items: center;
-      > img {
-        height: 80%;
-        margin: 0 20px;
+      justify-content: space-between;
+      &:not(:last-child) {
+        border-bottom: 1px solid #f0eff4;
+      }
+      .contentWord {
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        > span {
+          &:last-child {
+            margin-left: 15px;
+          }
+        }
       }
     }
   }

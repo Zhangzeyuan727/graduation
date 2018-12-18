@@ -3,7 +3,7 @@
     <div class="registerTitle">用户注册</div>
     <mt-field label="用户名" placeholder="请输入用户名" v-model="user.name"></mt-field>
     <mt-field label="密码" placeholder="请输入密码" type="password" v-model="user.pwd"></mt-field>
-    <div class="loginBtn" @click="goRegister">注册</div>
+    <div class="loginBtn" @click="goRegister" :class="isWrite">注册</div>
     <div @click="goBack">返回</div>
   </div>
 </template>
@@ -18,6 +18,15 @@ export default {
         uid: ""
       }
     };
+  },
+  computed: {
+    isWrite() {
+      if (this.user.name && this.user.pwd) {
+        return "checked";
+      } else {
+        return "unChecked";
+      }
+    }
   },
   methods: {
     goRegister() {
@@ -89,7 +98,12 @@ export default {
     border-radius: 10px;
     text-align: center;
     line-height: 6vh;
-    background-color: #bbd2c2;
+  }
+  .unChecked {
+    background-color: rgba(187, 210, 194, 0.2);
+  }
+  .checked {
+    background-color: rgb(187, 210, 194);
   }
 }
 </style>

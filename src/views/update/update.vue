@@ -23,18 +23,24 @@ export default {
   },
   methods: {
     goUpdate() {
-      this.$http
-        .updateUserInfo({
-          name: this.user.name,
-          password: this.user.pwd
-        })
-        .then(res => {
-          if (res.data.statusCode == 1) {
-            this.$toast({
-              message: "修改成功!"
-            });
-          }
+      if (this.user.name && this.user.pwd) {
+        this.$http
+          .updateUserInfo({
+            name: this.user.name,
+            password: this.user.pwd
+          })
+          .then(res => {
+            if (res.data.statusCode == 1) {
+              this.$toast({
+                message: "修改成功!"
+              });
+            }
+          });
+      } else {
+        this.$toast({
+          message: "用户名、密码不为空!"
         });
+      }
     }
   }
 };
@@ -46,26 +52,26 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../.././assets/bg/bg-01.jpg');
+  background-image: url("../.././assets/bg/bg-01.jpg");
   background-size: 100% 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   // align-items: center;
-  justify-content: center; 
+  justify-content: center;
   .el-input__inner {
     width: 90%;
     height: 7vh;
     margin-left: 5%;
     border: none;
     border-bottom: 1px solid #eee;
-    color: rgba(0, 0, 0, .2);
+    color: rgba(0, 0, 0, 0.2);
     padding: 0;
     margin-bottom: 20px;
-    background-color: rgba(255, 255, 255, .1);
+    background-color: rgba(255, 255, 255, 0.1);
   }
   .confirm {
-    color: rgba(0, 0, 0, .2);
+    color: rgba(0, 0, 0, 0.2);
     width: 90%;
     margin-left: 5%;
     text-align: center;

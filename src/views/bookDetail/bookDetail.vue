@@ -65,8 +65,8 @@
           ></el-rate>
         </div>
         <div
-          class="review"
           v-for="(reviewItem,index) in bookReview"
+          :class="'review ' + 'reviewContents' + index"
           :key="index"
         >
           <!-- <div > -->
@@ -81,25 +81,35 @@
               src="../../assets/login/reviewer2.jpg"
               alt=""
             >
-            <span v-if="reviewItem.user">{{reviewItem.user.name}}</span>
-            <el-rate
-              v-model="reviewItem.star"
-              disabled
-              text-color="#999"
-            ></el-rate>
+            <span
+              style="font-size:13px;color:#61613a;"
+              v-if="reviewItem.user"
+            >{{reviewItem.user.name}}</span>
             <span class="reviewTime">{{reviewItem.time}}</span>
           </div>
-          <div v-if="reviewItem.title">{{reviewItem.title}}</div>
+          <el-rate
+            v-model="reviewItem.star"
+            disabled
+            text-color="#999"
+          ></el-rate>
+
           <div
-            v-if="reviewItem.content"
+            style="font-size:14px;color:#4d513a;margin-bottom:4px;"
+            v-if="reviewItem.title"
+          >{{reviewItem.title}}</div>
+          <div
+            v-show="reviewItem.content"
             class="reviewContent"
-            style="-webkit-box-orient: vertical;"
           >{{reviewItem.content}}</div>
+          <button @click="seeAll(index)">展开</button>
           <!-- </div> -->
         </div>
         <!-- <div style="position:fixed;left:0;bottom:10vh; color:red" @click="goCollect">收藏</div> -->
         <div class="myReview">
-          <div @click="goReview">我要评论</div>
+          <div
+            style="text-align:right"
+            @click="goReview"
+          >我要评论</div>
           <div v-if="showReview">
             <el-input
               v-model="reviewTitle"
@@ -134,12 +144,26 @@ export default {
       bookDetail: [],
       bookReview: [],
       //收藏列表
-      collectList: []
+      collectList: [],
+      reviewContentHeight: []
     };
   },
   created() {
     let id = localStorage.getItem("bookDetailId");
     this.loadData(id);
+  },
+  mounted() {
+    //文章元素div
+    let reviewContentArr = document.querySelectorAll(".review .reviewContent");
+    console.log("reviewContentArr", reviewContentArr);
+    //获取元素真正高度
+    for (let i = 0; i < reviewContentArr.length; i++) {
+      this.reviewContentHeight[i] = reviewContentArr[i].offsetHeight;
+    }
+    for (let i = 0; i < reviewContentArr.length; i++) {
+      //给元素定下显示高度
+      reviewContentArr[i].style.height = "54px";
+    }
   },
   methods: {
     back() {
@@ -244,6 +268,16 @@ export default {
           );
       }
       return fmt;
+    },
+    seeAll(index) {
+      //获取显示content的元素
+      let reviewContent = document.querySelector(
+        ".reviewContents" + index + " .reviewContent"
+      );
+      console.log("reviewContents" + index + "reviewContent");
+      //元素变为真正的高度显示
+      reviewContent.style.height = this.reviewContentHeight[index] + "px";
+      console.log(this.reviewContentHeight);
     }
   }
 };
@@ -355,21 +389,33 @@ export default {
       .score {
         margin: 10px;
       }
-      .review {
+      .review,
+      .reviewContents {
         width: 100%;
         margin: 0 10px;
         width: calc(100% - 20px);
-
+        border-bottom: 1px solid #eee;
+        padding-bottom: 12px;
+        padding-top: 6px;
         .reviewTitle {
           display: flex;
           height: 40px;
           align-items: center;
+          position: relative;
           img {
-            width: 20px;
+            width: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
           }
           .reviewTime {
             font-size: 12px;
+            position: absolute;
+            right: 0;
+            color: #89906d;
           }
+        }
+        .el-rate {
+          margin-bottom: 10px;
         }
         .reviewContent {
           width: 100%;

@@ -1,19 +1,9 @@
 <template>
   <div id="home">
     <div class="header">
-      <div
-        @click="showSearch"
-        style="width:100%;margin-right: 20px;margin-left: 35px"
-      >
-        <el-input
-          placeholder="请输入内容"
-          class="input-with-select"
-          readonly
-        >
-          <el-button
-            slot="append"
-            icon="el-icon-search"
-          ></el-button>
+      <div @click="showSearch" style="width:100%;margin-right: 20px;margin-left: 35px">
+        <el-input placeholder="请输入内容" class="input-with-select" readonly>
+          <el-button slot="append" icon="el-icon-search"></el-button>
         </el-input>
       </div>
     </div>
@@ -21,28 +11,16 @@
       <div class="banner">
         <mt-swipe :auto="4000">
           <mt-swipe-item>
-            <img
-              src="../.././assets/bookImg/banner-1.jpg"
-              alt
-            >
+            <img src="../.././assets/bookImg/banner-1.jpg" alt>
           </mt-swipe-item>
           <mt-swipe-item>
-            <img
-              src="../.././assets/bookImg/banner-2.jpg"
-              alt
-            >
+            <img src="../.././assets/bookImg/banner-2.jpg" alt>
           </mt-swipe-item>
           <mt-swipe-item>
-            <img
-              src="../.././assets/bookImg/banner-3.jpg"
-              alt
-            >
+            <img src="../.././assets/bookImg/banner-3.jpg" alt>
           </mt-swipe-item>
           <mt-swipe-item>
-            <img
-              src="../.././assets/bookImg/banner-4.jpg"
-              alt
-            >
+            <img src="../.././assets/bookImg/banner-4.jpg" alt>
           </mt-swipe-item>
         </mt-swipe>
       </div>
@@ -61,48 +39,47 @@
         </div>
         <div class="books">
           <div class="book">
-            <img src="../.././assets/bookImg/book-1.jpg" />
+            <img src="../.././assets/bookImg/book-1.jpg">
             <p class="name">书名---------</p>
             <p class="author">作者--------</p>
           </div>
           <div class="book">
-            <img src="../.././assets/bookImg/book-2.jpg" />
+            <img src="../.././assets/bookImg/book-2.jpg">
             <p class="name">书名---------</p>
             <p class="author">作者--------</p>
           </div>
           <div class="book">
-            <img src="../.././assets/bookImg/book-3.jpg" />
+            <img src="../.././assets/bookImg/book-3.jpg">
             <p class="name">书名---------</p>
             <p class="author">作者--------</p>
           </div>
           <div class="book">
-            <img src="../.././assets/bookImg/book-4.jpg" />
+            <img src="../.././assets/bookImg/book-4.jpg">
             <p class="name">书名---------</p>
             <p class="author">作者--------</p>
           </div>
           <div class="book">
-            <img src="../.././assets/bookImg/book-5.jpg" />
+            <img src="../.././assets/bookImg/book-5.jpg">
             <p class="name">书名---------</p>
             <p class="author">作者--------</p>
           </div>
           <div class="book">
-            <img src="../.././assets/bookImg/book-6.jpg" />
+            <img src="../.././assets/bookImg/book-6.jpg">
             <p class="name">书名---------</p>
             <p class="author">作者--------</p>
           </div>
           <div class="book">
-            <img src="../.././assets/bookImg/book-7.jpg" />
+            <img src="../.././assets/bookImg/book-7.jpg">
             <p class="name">书名---------</p>
             <p class="author">作者--------</p>
           </div>
           <div class="book">
-            <img src="../.././assets/bookImg/book-8.jpg" />
+            <img src="../.././assets/bookImg/book-8.jpg">
             <p class="name">书名---------</p>
             <p class="author">作者--------</p>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -262,7 +239,7 @@ export default {
             font-size: 12px;
           }
         }
-        .book:nth-child(4n+1) {
+        .book:nth-child(4n + 1) {
           margin-left: 0;
         }
       }

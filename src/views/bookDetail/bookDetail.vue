@@ -145,12 +145,15 @@ export default {
       bookReview: [],
       //收藏列表
       collectList: [],
-      reviewContentHeight: []
+      reviewContentHeight: [],
+      //来源
+      from:''
     };
   },
   created() {
     let id = localStorage.getItem("bookDetailId");
     this.loadData(id);
+    this.from=this.$store.state.from;
   },
   mounted() {
     //文章元素div
@@ -167,7 +170,9 @@ export default {
   },
   methods: {
     back() {
-      this.$router.back();
+      this.$router.push({
+        name:this.from
+      })
     },
     change(e) {
       this.active = e;

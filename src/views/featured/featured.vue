@@ -53,9 +53,8 @@ export default {
   methods: {
     goDetail(id) {
       localStorage.setItem("bookDetailId", id);
-      this.$router.push({
-        path: "/bookDetail"
-      });
+      this.$router.push({ path: "/bookDetail" });
+      this.$store.commit("changeDetailFrom", "featured");
     }
   }
 };

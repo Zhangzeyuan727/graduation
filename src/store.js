@@ -6,7 +6,9 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     showTab: true,
-    token: ''
+    token: '',
+    //图书详情来源
+    from: ''
   },
   action: {
 
@@ -17,6 +19,9 @@ const store = new Vuex.Store({
     },
     addToken(state, e) {
       state.token = e
+    },
+    changeDetailFrom(state, param) {
+      state.from = param
     }
   },
   getters: {

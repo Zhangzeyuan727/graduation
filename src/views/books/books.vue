@@ -1,8 +1,6 @@
 <template>
   <div id="books">
-    <div class="header">
-      书城
-    </div>
+    <div class="header">书城</div>
     <div
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
@@ -10,13 +8,8 @@
       infinite-scroll-distance="10"
       class="content"
     >
-      <div
-        class="book"
-        v-for="item in bookList"
-        v-bind:key="item.id"
-        @click="goDetail(item.id)"
-      >
-        <img src="../.././assets/bookImg/book-1.jpg" />
+      <div class="book" v-for="item in bookList" v-bind:key="item.id" @click="goDetail(item.id)">
+        <img src="../.././assets/bookImg/book-1.jpg">
         <div class="bookInfo">
           <p>{{item.name}}</p>
           <p>{{item.author.name}}</p>
@@ -24,14 +17,8 @@
         </div>
       </div>
     </div>
-    <div
-      class="loading-box"
-      v-if="isLoading"
-    >
-      <mt-spinner
-        type="triple-bounce"
-        :size="20"
-      ></mt-spinner>
+    <div class="loading-box" v-if="isLoading">
+      <mt-spinner type="triple-bounce" :size="20"></mt-spinner>
     </div>
   </div>
 </template>
@@ -54,12 +41,16 @@ export default {
     };
   },
   created() {
+    if (!this.$store.state.showTab) {
+      this.$store.commit("change");
+    }
     this.loadData();
   },
   methods: {
     goDetail(id) {
-      localStorage.setItem('bookDetailId',id);
-      this.$router.push({ path: "/bookDetail"});
+      localStorage.setItem("bookDetailId", id);
+      this.$router.push({ path: "/bookDetail" });
+      this.$store.commit("changeDetailFrom", "books");
     },
     loadData() {
       // this.$Indicator.open('加载中...');
@@ -80,13 +71,12 @@ export default {
             this.isLoading = false;
             // console.log(this.bookList);
           } else {
-      
           }
         })
         .catch(err => {
           console.log(err);
         });
-        // this.$Indicator.close();
+      // this.$Indicator.close();
     },
     loadMore() {
       this.pageInfo.page++;
@@ -177,7 +167,7 @@ export default {
   }
   .loading-box {
     width: 100%;
-    height: 30px;;
+    height: 30px;
     display: flex;
     justify-content: center;
     position: fixed;

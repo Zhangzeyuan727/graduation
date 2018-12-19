@@ -137,10 +137,9 @@ export default {
       this.keyword = e;
     },
     goDetail(e) {
-      localStorage.setItem('bookDetailId',e);
-      this.$router.push({
-        path: "/bookDetail"
-      });
+      localStorage.setItem("bookDetailId", e);
+      this.$router.push({ path: "/bookDetail" });
+      this.$store.commit("changeDetailFrom", "search");
     },
     close() {
       this.$router.go(-1);

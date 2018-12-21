@@ -30,7 +30,10 @@ export default {
   },
   methods: {
     goRegister() {
-      if (this.user.name && this.user.pwd) {
+      if (
+        this.user.name.replace(/\s*/g, "") &&
+        this.user.pwd.replace(/\s*/g, "")
+      ) {
         this.$http
           .userRegister({
             name: this.user.name,

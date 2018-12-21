@@ -15,8 +15,8 @@ let router = new Router({
     { path: "/books", name: "books", component: resolve => require(['@/views/books/books'], resolve) },
     { path: "/person", name: "person", component: resolve => require(['@/views/person/person'], resolve) },
     { path: "/bookDetail", name: "bookDetail", component: resolve => require(['@/views/bookDetail/bookDetail'], resolve) },
-    { path: '/update', name: 'update', component: resolve => require(['@/views/update/update'], resolve) }
-    // { path: '/featured', name: 'featured', component: featured},
+    { path: '/update', name: 'update', component: resolve => require(['@/views/update/update'], resolve) },
+    { path: '/review', name: 'review', component: resolve => require(['@/views/bookDetail/review'], resolve) }
   ]
 });
 

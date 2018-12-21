@@ -23,7 +23,10 @@ export default {
   },
   methods: {
     goUpdate() {
-      if (this.user.name && this.user.pwd) {
+      if (
+        this.user.name.replace(/\s*/g, "") &&
+        this.user.pwd.replace(/\s*/g, "")
+      ) {
         this.$http
           .updateUserInfo({
             name: this.user.name,

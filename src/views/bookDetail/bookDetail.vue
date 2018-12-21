@@ -108,23 +108,8 @@
         <div class="myReview">
           <div
             style="text-align:right"
-            @click="goReview"
+            @click="goReview" class="goReview"
           >我要评论</div>
-          <div v-if="showReview">
-            <el-input
-              v-model="reviewTitle"
-              placeholder="请输入评论标题"
-            ></el-input>
-            <p>评价等级</p>
-            <el-rate v-model="reviewValue"></el-rate>
-            <el-input
-              type="textarea"
-              :rows="2"
-              placeholder="请输入评论内容"
-              v-model="reviewContent"
-            ></el-input>
-            <div @click="goCommit">确认提交</div>
-          </div>
         </div>
       </div>
     </div>
@@ -137,10 +122,6 @@ export default {
     return {
       active: "content",
       value: 0,
-      showReview: false,
-      reviewValue: null,
-      reviewTitle: "",
-      reviewContent: "",
       bookDetail: [],
       bookReview: [],
       //收藏列表
@@ -202,32 +183,17 @@ export default {
           }
         });
     },
-    //提交评论
-    goCommit() {
-      this.$http
-        .getUserInfo({
-          book_id: this.bookDetail[0].id,
-          title: this.reviewTitle,
-          star: this.reviewValue,
-          content: this.reviewContent
-        })
-        .then(res => {
-          if (res.data.statusCode == 1) {
-            this.$toast({
-              message: "评论成功"
-            });
-            setTimeout(() => {
-              this.showReview = false;
-            }, 3000);
-          }
-        });
-    },
     //评论
     goReview() {
       let userInfo = JSON.parse(localStorage.getItem("userInfo"));
       if (userInfo) {
         this.$store.commit("addToken", userInfo.uid);
-        this.showReview = true;
+        this.$router.push({
+          path:'/review',
+          query:{
+            bookId:this.bookDetail[0].id
+          }
+        })
       } else {
         this.$router.push({ path: "/login", query: { from: "/bookDetail" } });
       }
@@ -436,7 +402,7 @@ export default {
       .myReview {
         padding: 0 10px;
         box-sizing: border-box;
-        div:first-child {
+       .goReview{
           height: 30px;
           line-height: 30px;
           font-size: 12px;

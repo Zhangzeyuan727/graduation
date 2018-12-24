@@ -9,7 +9,9 @@
     </div>
     <div class="reviewContentView">
       <el-rate class="star" v-model="review" show-text style="text-align:center;margin:40px 0"></el-rate>
-      <div class="addReviewAd"></div>
+      <div class="addReviewAd">
+        <img src="../.././assets/review/illustration.jpeg">
+      </div>
       <div class="addReviewTitle">
         <input type="text" placeholder="添加标题" v-model="reviewTitle">
       </div>
@@ -111,7 +113,6 @@ export default {
     }
   }
   .reviewContentView {
-    margin: 0 10px;
     .star {
       position: relative;
       .el-rate__icon {
@@ -124,14 +125,21 @@ export default {
         margin-left: -30px;
         top: -20px;
         text-align: center;
+        font-size: 12px;
       }
     }
     .addReviewAd {
-      height: 8vh;
+      height: 14vh;
       box-sizing: border-box;
       border-top: 1px solid #eee;
+      margin: 0;
+      img {
+        width: 100%;
+        height: 14vh;
+      }
     }
     .addReviewTitle {
+      margin: 0 10px;
       height: 8vh;
       box-sizing: border-box;
       border-top: 1px solid #eee;
@@ -146,6 +154,7 @@ export default {
       }
     }
     .addReviewContent {
+      margin: 0 10px;
       margin-top: 10px;
       width: 100%;
     }

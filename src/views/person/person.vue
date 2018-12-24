@@ -1,12 +1,25 @@
 <template>
   <div id="person">
     <div class="header">
-      <div class="headerTop" v-if="user">
-        <img src="../../assets/login/login.jpeg" alt>
+      <div
+        class="headerTop"
+        v-if="user"
+      >
+        <img
+          src="../../assets/login/login.jpeg"
+          alt
+        >
         <span class="loginWord">{{user.name}}</span>
       </div>
-      <div class="headerTop" @click="goLogin" v-else>
-        <img src="../../assets/login/default.jpeg" alt>
+      <div
+        class="headerTop"
+        @click="goLogin"
+        v-else
+      >
+        <img
+          src="../../assets/login/default.jpeg"
+          alt
+        >
         <span class="loginWord">请先登录</span>
       </div>
       <div class="headerContent">
@@ -16,11 +29,11 @@
         </div>
         <div>
           <span class="iconfont icon-diamond24"></span>
-          <span class="personWord">我的收藏</span>
+          <span class="personWord">精彩评论</span>
         </div>
         <div>
           <span class="iconfont icon-bookshu"></span>
-          <span class="personWord">我的帖子</span>
+          <span class="personWord">我的搜索</span>
         </div>
         <div>
           <span class="iconfont icon-caidaniconwodehui"></span>
@@ -29,26 +42,49 @@
       </div>
     </div>
     <div class="content">
+      <!-- <div> -->
+        <router-link to='/setting'>
+          <div class="contentWord">
+            <span class="iconfont icon-shezhi"></span>
+            <span>个人设置</span>
+          </div>
+          <span class="iconfont icon-right"></span>
+        </router-link>
+      <!-- </div> -->
       <div>
         <div class="contentWord">
-          <span class="iconfont icon-diamond24"></span>
-          <span>个人设置</span>
-        </div>
-        <span class="iconfont icon-right"></span>
-      </div>
-      <div>
-        <div class="contentWord">
-          <span class="iconfont icon-diamond24"></span>
+          <span class="iconfont icon-guanzhu"></span>
           <span>关注我们</span>
         </div>
         <span class="iconfont icon-right"></span>
       </div>
       <div>
         <div class="contentWord">
-          <span class="iconfont icon-diamond24"></span>
-          <span>退出登录</span>
+          <span class="iconfont icon-share"></span>
+          <span>分享应用</span>
         </div>
         <span class="iconfont icon-right"></span>
+      </div>
+      <div>
+        <div class="contentWord">
+          <span class="iconfont icon-6"></span>
+          <span>意见反馈</span>
+        </div>
+        <span class="iconfont icon-right"></span>
+      </div>
+      <div>
+        <div class="contentWord">
+          <span class="iconfont icon-huojian"></span>
+          <span>检查更新</span>
+        </div>
+        <span class="iconfont icon-right"></span>
+      </div>
+      <div>
+        <div class="contentWord">
+          <span class="iconfont icon-tuichu"></span>
+          <span>退出登录</span>
+        </div>
+        <!-- <span class="iconfont icon-right"></span> -->
       </div>
     </div>
   </div>
@@ -113,7 +149,7 @@ export default {
       .loginWord {
         font-size: 18px;
         color: #fff;
-        font-weight: bolder;
+        font-weight: bold;
         margin-top: 5px;
       }
     }
@@ -135,18 +171,22 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        color: #666;
+        .iconfont {
+          font-size: 28px;
+        }
         .personWord {
-          font-size: 13px;
+          font-size: 12px;
           margin-top: 4px;
         }
       }
     }
   }
   .content {
-    > div {
+    > div , > a{
       height: 8vh;
       box-sizing: border-box;
-      padding: 0 20px;
+      margin: 0 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -157,11 +197,21 @@ export default {
         font-size: 13px;
         display: flex;
         align-items: center;
+        color: #333;
         > span {
           &:last-child {
             margin-left: 15px;
           }
         }
+        .iconfont {
+          font-size: 22px;
+          width: 22px;
+          height: 22px;
+          color: #c7d0b9;
+        }
+      }
+      .icon-right {
+        color: #999;
       }
     }
   }

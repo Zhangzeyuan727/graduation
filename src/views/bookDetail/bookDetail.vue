@@ -132,6 +132,9 @@ export default {
     };
   },
   created() {
+    if (!this.$store.state.showTab) {
+      this.$store.commit("change");
+    }
     let id = localStorage.getItem("bookDetailId");
     this.loadData(id);
     this.from=this.$store.state.from;

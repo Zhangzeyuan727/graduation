@@ -50,6 +50,10 @@
           </div>
         </div>
       </div>
+      <div class="searchNodata" v-if="showNoData&&book.length==0">
+        暂无此书籍,
+        <span @click="close">再逛逛</span>
+      </div>
     </div>
   </div>
 </template>
@@ -68,7 +72,8 @@ export default {
       historyList: [],
       //显示历史记录
       showHistory: true,
-      book: []
+      book: [],
+      showNoData: false
     };
   },
   created() {
@@ -98,6 +103,7 @@ export default {
   methods: {
     //搜索图书
     goSearch(type) {
+      this.showNoData = true;
       this.showSearchType = false;
       this.showHistory = false;
       this.book = [];
@@ -130,8 +136,22 @@ export default {
     },
     //删除搜索记录
     deleteBtn() {
-      this.historyList = [];
-      localStorage.removeItem("historySearch");
+      this.$messagebox
+        .confirm("", {
+          message: "是否删除?",
+          confirmButtonClass: "searchconfirmButton",
+          confirmButtonText: "删除",
+          cancelButtonText: "再考虑考虑"
+        })
+        .then(action => {
+          if (action == "confirm") {
+            this.historyList = [];
+            localStorage.removeItem("historySearch");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     goSelect(e) {
       this.keyword = e;
@@ -142,7 +162,9 @@ export default {
       this.$store.commit("changeDetailFrom", "search");
     },
     close() {
-      this.$router.go(-1);
+      this.$router.push({
+        name: "home"
+      });
     }
   }
 };
@@ -261,6 +283,19 @@ export default {
         justify-content: center;
       }
     }
+    .searchNodata {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 13px;
+      span {
+        color: #bbd2c2;
+      }
+    }
   }
+}
+.searchconfirmButton {
+  color: #bbd2c2;
 }
 </style>

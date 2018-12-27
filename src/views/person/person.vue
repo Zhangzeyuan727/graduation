@@ -3,7 +3,7 @@
     <div class="header">
       <template v-if="user">
         <img src="../../assets/login/login.jpeg" alt class="personPic">
-        <span>{{user.userName}}</span>
+        <span>{{user.name}}</span>
       </template>
       <template v-if="!user">
         <img src="../../assets/login/default.jpeg" alt class="personPic">
@@ -66,21 +66,7 @@
       <div>
         <div class="contentWord">
           <span class="iconfont icon-guanzhu"></span>
-          <span>关注我们</span>
-        </div>
-        <span class="iconfont icon-right"></span>
-      </div>
-      <div>
-        <div class="contentWord">
-          <span class="iconfont icon-share"></span>
-          <span>分享应用</span>
-        </div>
-        <span class="iconfont icon-right"></span>
-      </div>
-      <div>
-        <div class="contentWord">
-          <span class="iconfont icon-6"></span>
-          <span>意见反馈</span>
+          <span>关于我们</span>
         </div>
         <span class="iconfont icon-right"></span>
       </div>

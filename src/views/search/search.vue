@@ -1,20 +1,33 @@
 <template>
   <div id="search">
     <div class="header">
-      <i @click="close" class="iconfont icon-25"></i>
+      <i
+        @click="close"
+        class="iconfont icon-25"
+      ></i>
       <div style="width:100%;margin-right:20px">
-        <el-input placeholder="请输入内容" v-model="keyword" class="input-with-select">
-          <el-button slot="append" icon="el-icon-search"></el-button>
+        <el-input
+          placeholder="请输入内容"
+          v-model="keyword"
+          class="input-with-select"
+        >
+          <el-button
+            slot="append"
+            icon="el-icon-search"
+          ></el-button>
         </el-input>
       </div>
     </div>
     <div class="content">
       <template v-if="showHistory&&!showSearchType">
         <div class="historySearchTop">
-          <span>历史搜索记录</span>
-          <span @click="deleteBtn">删除</span>
+          <span class="history">历史搜索记录</span>
+          <span
+            @click="deleteBtn"
+            class="iconfont icon-trash-gray"
+          ></span>
         </div>
-        <div>
+        <div class="histories">
           <div
             v-for="(item,index) in historyList"
             :key="index"
@@ -24,35 +37,52 @@
         </div>
       </template>
       <template v-if="showSearchType">
-        <div class="searchType" @click="goSearch('name')">
+        <div
+          class="searchType"
+          @click="goSearch('name')"
+        >
           <i class="iconfont icon-search"></i>
           <div class="type">按书名搜索:</div>
           <div class="keyWord">{{keyword}}</div>
         </div>
-        <div class="searchType" @click="goSearch('author')">
+        <div
+          class="searchType"
+          @click="goSearch('author')"
+        >
           <i class="iconfont icon-search"></i>
           <div class="type">按作者搜索:</div>
           <div class="keyWord">{{keyword}}</div>
         </div>
-        <div class="searchType" @click="goSearch('isbn')">
+        <div
+          class="searchType"
+          @click="goSearch('isbn')"
+        >
           <i class="iconfont icon-search"></i>
           <div class="type">按ISBN搜索:</div>
           <div class="keyWord">{{keyword}}</div>
         </div>
       </template>
       <div v-if="!showSearchType&&!showHistory">
-        <div v-for="item in book" :key="item.id" class="searchBook" @click="goDetail(item.id)">
-          <img src="../../assets/bookImg/book-1.jpg" alt>
+        <div
+          v-for="item in book"
+          :key="item.id"
+          class="searchBook"
+          @click="goDetail(item.id)"
+        >
+          <img
+            src="../../assets/bookImg/book-1.jpg"
+            alt
+          >
           <div class="searchBookContent">
             <span>{{item.name}}</span>
-            <span>{{item.price}}</span>
+            <span>{{item.author.name}}</span>
             <span>{{item.publishingFirm}}</span>
           </div>
         </div>
       </div>
       <div class="searchNodata" v-if="showNoData&&book.length==0">
-        暂无此书籍,
-        <span @click="close">再逛逛</span>
+        <img src="../../assets/person/null.png" alt="">
+        <div class="null">暂无此书籍,<span @click="close">再逛逛</span></div>
       </div>
     </div>
   </div>
@@ -138,10 +168,10 @@ export default {
     deleteBtn() {
       this.$messagebox
         .confirm("", {
-          message: "是否删除?",
+          message: "确认删除历史记录?",
           confirmButtonClass: "searchconfirmButton",
           confirmButtonText: "删除",
-          cancelButtonText: "再考虑考虑"
+          cancelButtonText: "考虑ing"
         })
         .then(action => {
           if (action == "confirm") {
@@ -179,7 +209,7 @@ export default {
   top: 0;
   bottom: 0px;
   overflow: hidden;
-  background-color: #fff;
+  background-color: #f0f1f5;
   .header {
     display: flex;
     align-items: center;
@@ -234,28 +264,50 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin: 1vh 4vw;
       span {
         font-size: 14px;
       }
+      .history {
+        font-size: 13px;
+        color: #333;
+      }
+      .icon-trash-gray {
+        font-size: 20px;
+        color: #999;
+      }
+    }
+    .histories {
+      margin: 1vh 4vw;
     }
     .historySearchContent {
-      padding: 3px 15px;
+      margin-left: 2vw;
+      padding: 2px 14px;
       border: 1px solid #ccc;
       border-radius: 50px;
       display: inline-block;
+      font-size: 13px;
+      color: #333;
+    }
+    .historySearchContent:first-child {
+      margin-left: 0;
     }
     .searchType {
-      height: 10vh;
+      height: 9vh;
       display: flex;
       align-items: center;
-      margin-left: 10vw;
+      margin-left: 4vw;
       box-sizing: border-box;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid #eee;
+      margin-right: 4vw;
+      color: #333;
+      font-size: 13px;
       > i {
         font-size: 20px;
         display: block;
         width: 20px;
         height: 20px;
+        margin-right: 2vw;
       }
       .type {
         width: 80px;
@@ -266,36 +318,52 @@ export default {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        color: #666;
       }
     }
     .searchBook {
       display: flex;
       align-items: center;
       height: 15vh;
-      margin: 15px 10px;
+      margin: 10px 0px;
+      background-color: #fff;
       > img {
         height: 80%;
-        margin-right: 20px;
+        margin: 15px;
       }
       .searchBookContent {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        margin-right: 15px;
+        span:first-child {
+          color: #333;
+          font-size: 15px;
+        }
+        span:nth-child(2), span:last-child {
+          color: #666;
+          font-size: 13px;
+        }
       }
     }
     .searchNodata {
       position: absolute;
-      top: 50%;
+      top: 46%;
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 13px;
+      color: #333;
+      .null {
+        text-align: center;
+        margin-top: 3vh;
+      }
       span {
-        color: #bbd2c2;
+        color: #91b493;
       }
     }
   }
 }
 .searchconfirmButton {
-  color: #bbd2c2;
+  color: #91b493;
 }
 </style>

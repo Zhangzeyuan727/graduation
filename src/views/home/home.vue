@@ -71,6 +71,32 @@
           </div>
         </div>
       </div>
+
+      <div class="recommend">
+        <div class="title">
+          <div class="hot">
+            <i class="iconfont icon-new"></i>
+            <span>新书推荐</span>
+          </div>
+          <div class="more">
+            <router-link to="/books">
+              <span>更多</span>
+              <i class="iconfont icon-right"></i>
+            </router-link>
+          </div>
+        </div>
+        <div class="books">
+          <div
+            class="book"
+            v-for="item in recommend"
+            :key="item.id"
+          >
+            <img src="../.././assets/bookImg/book-1.jpg">
+            <p class="name">{{item.name}}</p>
+            <p class="author">{{item.author.name}}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -214,6 +240,10 @@ export default {
           color: #333;
           .icon-fire {
             color: #fa7c61;
+            margin-right: 5px;
+          }
+          .icon-new {
+            color: #F9BF45;
             margin-right: 5px;
           }
         }

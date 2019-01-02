@@ -1,11 +1,28 @@
 <template>
   <div id="login">
-    <div class="loginTitle">用户登录</div>
-    <mt-field label="用户名" placeholder="请输入用户名" v-model="user.name"></mt-field>
-    <mt-field label="密码" placeholder="请输入密码" type="password" v-model="user.pwd"></mt-field>
-    <div class="loginBtn" @click="goLogin" :class="isWrite">登录</div>
-    <div class="loginBtn" @click="goRegister">注册</div>
-    <div @click="goBack">返回</div>
+    <div class="loginBg"></div>
+    <div class="loginTitle">
+      <i class="iconfont icon-25" @click="goBack"></i>
+      <span>登录</span>
+      <span>注册</span>
+    </div>
+    <div class="loginHeader">
+      <img src="../../assets/login/header.jpg" alt>
+    </div>
+    <div class="loginName" style="margin-bottom:20px">
+      <span>手机号码</span>
+      <div>
+        <input type="text" v-model="user.name" class="loginInput">
+      </div>
+    </div>
+    <div class="loginName">
+      <span>密码</span>
+      <div>
+        <input type="password" v-model="user.pwd" class="loginInput">
+      </div>
+    </div>
+    <div class="loginBtn" @click="goLogin">登录</div>
+    <!-- <div class="loginBtn" @click="goRegister">注册</div> -->
   </div>
 </template>
 
@@ -23,15 +40,6 @@ export default {
   created() {
     if (this.$store.state.showTab) {
       this.$store.commit("change");
-    }
-  },
-  computed: {
-    isWrite() {
-      if (this.user.name && this.user.pwd) {
-        return "checked";
-      } else {
-        return "unChecked";
-      }
     }
   },
   methods: {
@@ -84,27 +92,85 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
+  .loginBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../../assets/login/loginBg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    filter: blur(3px);
+    filter: brightness(80%);
+    z-index: -1;
+  }
   .loginTitle {
     height: 10vh;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 0 4vw;
+    // color: #616138;
+    color: #fff;
+    &span:nth-child(2) {
+      font-size: 15px;
+    }
+  }
+  .loginHeader {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    height: 15vh;
+    margin: 60px 0 60px 0;
+    img {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+    }
+  }
+  .loginName {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 0 10vw;
+    > span {
+      font-size: 13px;
+      color: #fff;
+    }
+    > div {
+      height: 6vh;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      input {
+        border: 0;
+        height: 80%;
+        outline: none;
+        color: #fff;
+      }
+    }
   }
   .loginBtn {
     width: 80%;
+    color: #fff;
     height: 6vh;
     margin-left: 10%;
-    margin-top: 20px;
+    margin-top: 40px;
     border-radius: 10px;
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.2);
     line-height: 6vh;
+    border: 1px solid #eee;
   }
-  .unChecked {
-    background-color: rgba(187, 210, 194, 0.2);
-  }
-  .checked {
-    background-color: rgb(187, 210, 194);
-  }
+  // .unChecked {
+  //   background-color: rgba(187, 210, 194, 0.2);
+  // }
+  // .checked {
+  //   background-color: rgb(187, 210, 194);
+  // }
 }
 </style>
 

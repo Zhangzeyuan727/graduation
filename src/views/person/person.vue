@@ -13,45 +13,6 @@
         <div class="loginButton" @click="goLogin">登录</div>
         <p @click="goRegister">注册新账号</p>
       </template>
-      <!-- <div
-        class="headerTop"
-        v-if="user"
-      >
-        <img
-          src="../../assets/login/login.jpeg"
-          alt
-        >
-        <span class="loginWord">{{user.name}}</span>
-      </div>
-      <div
-        class="headerTop"
-        @click="goLogin"
-        v-else
-      >
-        <img
-          src="../../assets/login/default.jpeg"
-          alt
-        >
-        <span class="loginWord">请先登录</span>
-      </div>
-      <div class="headerContent">
-        <div>
-          <span class="iconfont icon-caidaniconshouyehui"></span>
-          <span class="personWord">我的作品</span>
-        </div>
-        <div>
-          <span class="iconfont icon-diamond24"></span>
-          <span class="personWord">精彩评论</span>
-        </div>
-        <div>
-          <span class="iconfont icon-bookshu"></span>
-          <span class="personWord">我的搜索</span>
-        </div>
-        <div>
-          <span class="iconfont icon-caidaniconwodehui"></span>
-          <span class="personWord">我的消息</span>
-        </div>
-      </div>-->
     </div>
     <div class="content">
       <!-- <div> -->
@@ -169,53 +130,6 @@ export default {
       font-weight: bolder;
       font-size: 15px;
     }
-    // .headerTop {
-    //   margin-left: 5%;
-    //   padding-top: 4vh;
-    //   display: flex;
-    //   align-items: flex-start;
-    //   > img {
-    //     width: 18vw;
-    //     height: 18vw;
-    //     border-radius: 50%;
-    //     border: 3px solid #fff;
-    //     margin-right: 20px;
-    //   }
-    //   .loginWord {
-    //     font-size: 18px;
-    //     color: #fff;
-    //     font-weight: bold;
-    //     margin-top: 5px;
-    //   }
-    // }
-    // .headerContent {
-    //   background-color: #fff;
-    //   width: 90%;
-    //   height: 10vh;
-    //   position: absolute;
-    //   left: 5%;
-    //   bottom: 14px;
-    //   border-radius: 8px;
-    //   box-shadow: 0 0 2px 2px rgb(210, 210, 210);
-    //   display: flex;
-    //   align-items: center;
-    //   justify-content: space-between;
-    //   > div {
-    //     flex: 1;
-    //     display: flex;
-    //     flex-direction: column;
-    //     justify-content: center;
-    //     align-items: center;
-    //     color: #666;
-    //     .iconfont {
-    //       font-size: 28px;
-    //     }
-    //     .personWord {
-    //       font-size: 12px;
-    //       margin-top: 4px;
-    //     }
-    //   }
-    // }
   }
   .content {
     > div,

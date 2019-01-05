@@ -27,7 +27,8 @@
           <p>装帧：<span>{{item.binding}}</span></p>
           <p>ISBN：<span>{{item.isbn}}</span></p>
         </div>
-        <div class="collection"><i class="iconfont icon-shoucang1"></i></div>
+        <div class="collection" v-if="isCollect"><i style="font-size:26px;color:red"  class="iconfont icon-shoucang" @click="goCollect"></i></div>
+        <div class="collection" v-else><i class="iconfont icon-shoucang1" @click="goCollect"></i></div>
       </div>
       <div class="descriptionTitle">
         <div
@@ -130,7 +131,8 @@ export default {
       collectList: [],
       reviewContentHeight: [],
       //来源
-      from: ""
+      from: "",
+      isCollect:false
     };
   },
   created() {
@@ -139,7 +141,7 @@ export default {
     }
     let id = localStorage.getItem("bookDetailId");
     this.loadData(id);
-    this.from = this.$store.state.from;
+    this.from = localStorage.getItem('detailFrom');
   },
   mounted() {
     //文章元素div
@@ -204,14 +206,41 @@ export default {
       }
     },
     //收藏
-    // goCollect(){
-    // let collect =JSON.parse(localStorage.getItem('collect'));
-    // if(collect){
-
-    // }else{
-    //   localStorage.setItem('collect',JSON.stringify(this.bookDetail[0]))
-    // }
-    // },
+    goCollect(){
+    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      if (userInfo) {
+        this.$store.commit("addToken", userInfo.uid);
+        if(this.isCollect){
+             this.$http.cancelCollectBook({
+            book_id:this.bookDetail[0].id
+          }).then(res=>{
+            if(res.data.statusCode==1){
+              this.isCollect=false
+              this.$toast({
+                message: "取消收藏"
+              });
+            }
+          })
+        }else{
+          this.$http.collectBook({
+            book_id:this.bookDetail[0].id
+          }).then(res=>{
+            if(res.data.statusCode==1){
+              this.isCollect=true;
+              this.$toast({
+                message: "收藏成功"
+              });
+            }else if(res.data.statusCode==2){
+              this.$toast({
+                message: "此图书已被收藏"
+              });
+            }
+          })
+        }
+      } else {
+        this.$router.push({ path: "/login", query: { from: "/bookDetail" } });
+      }
+    },
     //改变时间格式
     dateFormat(date, fmt) {
       if (date === null || date === "") {

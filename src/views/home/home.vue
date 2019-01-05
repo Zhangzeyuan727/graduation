@@ -1,19 +1,9 @@
 <template>
   <div id="home">
     <div class="header">
-      <div
-        @click="showSearch"
-        style="width:100%;margin-right: 20px;margin-left: 35px"
-      >
-        <el-input
-          placeholder="请输入内容"
-          class="input-with-select"
-          readonly
-        >
-          <el-button
-            slot="append"
-            icon="el-icon-search"
-          ></el-button>
+      <div @click="showSearch" style="width:100%;margin-right: 20px;margin-left: 35px">
+        <el-input placeholder="请输入内容" class="input-with-select" readonly>
+          <el-button slot="append" icon="el-icon-search"></el-button>
         </el-input>
       </div>
     </div>
@@ -21,28 +11,16 @@
       <div class="banner">
         <mt-swipe :auto="4000">
           <mt-swipe-item>
-            <img
-              src="../.././assets/bookImg/banner-1.jpg"
-              alt
-            >
+            <img src="../.././assets/bookImg/banner-1.jpg" alt>
           </mt-swipe-item>
           <mt-swipe-item>
-            <img
-              src="../.././assets/bookImg/banner-2.jpg"
-              alt
-            >
+            <img src="../.././assets/bookImg/banner-2.jpg" alt>
           </mt-swipe-item>
           <mt-swipe-item>
-            <img
-              src="../.././assets/bookImg/banner-3.jpg"
-              alt
-            >
+            <img src="../.././assets/bookImg/banner-3.jpg" alt>
           </mt-swipe-item>
           <mt-swipe-item>
-            <img
-              src="../.././assets/bookImg/banner-4.jpg"
-              alt
-            >
+            <img src="../.././assets/bookImg/banner-4.jpg" alt>
           </mt-swipe-item>
         </mt-swipe>
       </div>
@@ -60,11 +38,7 @@
           </div>
         </div>
         <div class="books">
-          <div
-            class="book"
-            v-for="item in recommend"
-            :key="item.id"
-          >
+          <div class="book" v-for="item in recommend" :key="item.id" @click="goDetail(item.id)">
             <img src="../.././assets/bookImg/book-1.jpg">
             <p class="name">{{item.name}}</p>
             <p class="author">{{item.author.name}}</p>
@@ -86,11 +60,7 @@
           </div>
         </div>
         <div class="books">
-          <div
-            class="book"
-            v-for="item in recommend"
-            :key="item.id"
-          >
+          <div class="book" v-for="item in recommend" :key="item.id" @click="goDetail(item.id)">
             <img src="../.././assets/bookImg/book-1.jpg">
             <p class="name">{{item.name}}</p>
             <p class="author">{{item.author.name}}</p>
@@ -119,22 +89,42 @@ export default {
     handleClick(tab, event) {
       // console.log(tab, event)
     },
+    goDetail(id) {
+      localStorage.setItem("bookDetailId", id);
+      //本地保存跳转路径
+      localStorage.setItem("detailFrom", "home");
+      this.$router.push({ path: "/bookDetail" });
+    },
     showSearch() {
       this.$router.push({
         path: "/search"
       });
     },
     loadData() {
+      let temporaryArr = [];
       this.$http.queryBook(`limit=30&page=1&pagination=false`).then(res => {
         res.data.results.forEach(it => {
           if (it.binding === "精装") {
-            if (this.recommend.length < 8) {
-              this.recommend.push(it);
-            }
+            temporaryArr.push(it);
           }
         });
-        console.log(this.recommend);
+        this.recommend = this.getRandomArrayElements(temporaryArr, 8);
       });
+    },
+    //随机从数组中截取固定长度的数组
+    getRandomArrayElements(arr, count) {
+      var shuffled = arr.slice(0),
+        i = arr.length,
+        min = i - count,
+        temp,
+        index;
+      while (i-- > min) {
+        index = Math.floor((i + 1) * Math.random());
+        temp = shuffled[index];
+        shuffled[index] = shuffled[i];
+        shuffled[i] = temp;
+      }
+      return shuffled.slice(min);
     }
   }
 };
@@ -243,7 +233,7 @@ export default {
             margin-right: 5px;
           }
           .icon-new {
-            color: #F9BF45;
+            color: #f9bf45;
             margin-right: 5px;
           }
         }
@@ -271,10 +261,16 @@ export default {
           .name {
             color: #333;
             font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
           .author {
             color: #666;
             font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
         // .book:nth-child(4n + 1) {

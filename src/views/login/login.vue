@@ -4,13 +4,13 @@
     <div class="loginTitle">
       <i class="iconfont icon-25" @click="goBack"></i>
       <span>登录</span>
-      <span>注册</span>
+      <span @click="goRegister">注册</span>
     </div>
     <div class="loginHeader">
       <img src="../../assets/login/header.jpg" alt>
     </div>
     <div class="loginName" style="margin-bottom:20px">
-      <span>手机号码</span>
+      <span>用户名</span>
       <div>
         <input type="text" v-model="user.name" class="loginInput">
       </div>
@@ -22,7 +22,9 @@
       </div>
     </div>
     <div class="loginBtn" @click="goLogin">登录</div>
-    <!-- <div class="loginBtn" @click="goRegister">注册</div> -->
+    <div class="loginPlus" @click="goRegister">
+      <i class="iconfont icon-jia1"></i>
+    </div>
   </div>
 </template>
 
@@ -78,6 +80,7 @@ export default {
         query: { from: this.$route.query.from }
       });
     },
+
     goBack() {
       this.$router.go(-1);
     }
@@ -165,12 +168,21 @@ export default {
     line-height: 6vh;
     border: 1px solid #eee;
   }
-  // .unChecked {
-  //   background-color: rgba(187, 210, 194, 0.2);
-  // }
-  // .checked {
-  //   background-color: rgb(187, 210, 194);
-  // }
+  .loginPlus {
+    width: 10vw;
+    height: 10vw;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 6vw;
+    bottom: 5vh;
+    > i {
+      color: #fff;
+    }
+  }
 }
 </style>
 

@@ -1,58 +1,24 @@
 <template>
   <div id="collection">
     <div class="header">
-      <i
-        @click="back"
-        class="iconfont icon-25"
-      ></i>
-      <p><i class="iconfont icon-shoucang"></i> 收藏列表 <i class="iconfont icon-shoucang"></i></p>
+      <i @click="back" class="iconfont icon-25"></i>
+      <p>
+        <i class="iconfont icon-shoucang"></i> 收藏列表
+        <i class="iconfont icon-shoucang"></i>
+      </p>
     </div>
     <div class="contents">
       <div class="content">
-        <div class="collection">
-          <img
-            src="../.././assets/bookImg/book-1.jpg"
-            alt=""
-          >
-          <p>偷书佛挡杀佛三份贼</p>
-          <p>偷发的发书贼</p>
-          <p>偷书放大范德萨发范德萨贼</p>
-          <div>
-            <i class="iconfont icon-shoucang"></i>
-          </div>
-        </div>
-        <div class="collection">
-          <img
-            src="../.././assets/bookImg/book-2.jpg"
-            alt=""
-          >
-          <p>偷书佛挡杀佛三份贼</p>
-          <p>偷发的发书贼</p>
-          <p>偷书放大范德萨发范德萨贼</p>
-          <div>
-            <i class="iconfont icon-shoucang"></i>
-          </div>
-        </div>
-        <div class="collection">
-          <img
-            src="../.././assets/bookImg/book-3.jpg"
-            alt=""
-          >
-          <p>偷书佛挡fdsafdsfsfsdfsdaf杀佛三份贼</p>
-          <p>偷发的发书贼</p>
-          <p>偷书放大范德萨发范德萨贼</p>
-          <div>
-            <i class="iconfont icon-shoucang"></i>
-          </div>
-        </div>
-        <div class="collection">
-          <img
-            src="../.././assets/bookImg/book-4.jpg"
-            alt=""
-          >
-          <p>偷书佛挡杀佛三份贼</p>
-          <p>偷发的fdasfafdsafdasfdsadfsd发书贼</p>
-          <p>偷书放大范德萨发范德萨贼</p>
+        <div
+          class="collection"
+          v-for="item in bookList"
+          :key="item.id"
+          @click="goDetail(item.book.id)"
+        >
+          <img src="../.././assets/bookImg/book-1.jpg" alt>
+          <p>{{item.book.name}}</p>
+          <p>{{item.book.author.name}}</p>
+          <p>{{item.book.publishingFirm}}</p>
           <div>
             <i class="iconfont icon-shoucang"></i>
           </div>
@@ -65,16 +31,43 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      bookList: []
+    };
   },
-  created() {
+  async created() {
     if (this.$store.state.showTab) {
       this.$store.commit("change");
     }
+    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    this.$store.commit("addToken", userInfo.uid);
+    this.$indicator.open({
+      spinnerType: "fading-circle"
+    });
+    await this.getCollectBook();
+    this.$indicator.close();
   },
   methods: {
+    //获取收藏图书列表
+    getCollectBook() {
+      this.$http.getlCollectBook("pagination=false").then(res => {
+        if (res.data.statusCode == 1) {
+          if (res.data.results && res.data.results.length > 0) {
+            this.bookList.push(...res.data.results);
+          }
+        }
+      });
+    },
+    goDetail(id) {
+      localStorage.setItem("bookDetailId", id);
+      //本地保存跳转路径
+      localStorage.setItem("detailFrom", "collection");
+      this.$router.push({ path: "/bookDetail" });
+    },
     back() {
-      this.$router.go(-1);
+      this.$router.push({
+        name: "person"
+      });
     }
   }
 };
@@ -105,7 +98,7 @@ export default {
       text-align: center;
       margin-right: 40px;
       .icon-shoucang {
-          color: #eb7a77;
+        color: #eb7a77;
       }
     }
   }

@@ -54,7 +54,8 @@ export default {
     goDetail(id) {
       localStorage.setItem("bookDetailId", id);
       this.$router.push({ path: "/bookDetail" });
-      this.$store.commit("changeDetailFrom", "featured");
+      //本地保存跳转路径
+      localStorage.setItem("detailFrom", "featured");
     }
   }
 };

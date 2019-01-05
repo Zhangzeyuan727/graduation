@@ -40,5 +40,17 @@ export default {
     //修改用户信息
     updateUserInfo(data) {
         return http.http.post("/user/modfiyUserInfo", data)
+    },
+    //收藏图书
+    collectBook(data) {
+        return http.http.post("/book/addCollectBook", data)
+    },
+    //取消收藏
+    cancelCollectBook(data) {
+        return http.http.post("/book/cancelCollectBook", data)
+    },
+    //获取收藏列表
+    getlCollectBook(data) {
+        return http.http.get(`/book/queryCollectBook?${data}`)
     }
 }

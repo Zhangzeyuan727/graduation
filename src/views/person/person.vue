@@ -2,26 +2,15 @@
   <div id="person">
     <div class="header">
       <template v-if="user">
-        <img
-          src="../../assets/login/login.jpeg"
-          alt
-          class="personPic"
-        >
+        <img src="../../assets/login/login.jpeg" alt class="personPic">
         <span>{{user.name}}</span>
       </template>
       <template v-if="!user">
-        <img
-          src="../../assets/login/default.jpeg"
-          alt
-          class="personPic"
-        >
+        <img src="../../assets/login/default.jpeg" alt class="personPic">
         <span>未知的人类</span>
       </template>
       <template v-if="!user">
-        <div
-          class="loginButton"
-          @click="goLogin"
-        >登录</div>
+        <div class="loginButton" @click="goLogin">登录</div>
         <p @click="goRegister">注册新账号</p>
       </template>
     </div>
@@ -33,14 +22,14 @@
         </div>
         <span class="iconfont icon-right"></span>
       </div>
-      <div @click="goCollection()">
+      <div @click="goCollection">
         <div class="contentWord">
           <span class="iconfont icon-shoucang1"></span>
           <span>我的收藏</span>
         </div>
         <span class="iconfont icon-right"></span>
       </div>
-      <div>
+      <div @click="goAdvice">
         <div class="contentWord">
           <span class="iconfont icon-6"></span>
           <span>意见反馈</span>
@@ -100,8 +89,13 @@ export default {
     },
     goCollection() {
       this.$router.push({
-        path: '/collection'
-      })
+        path: "/collection"
+      });
+    },
+    goAdvice() {
+      this.$router.push({
+        name: "advice"
+      });
     },
     check() {
       this.$toast({

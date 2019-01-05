@@ -50,13 +50,14 @@ export default {
     setTimeout(() => {
       this.loadData();
       this.$indicator.close();
-    },200);
+    }, 200);
   },
   methods: {
     goDetail(id) {
       localStorage.setItem("bookDetailId", id);
+      //本地保存跳转路径
+      localStorage.setItem("detailFrom", "books");
       this.$router.push({ path: "/bookDetail" });
-      this.$store.commit("changeDetailFrom", "books");
     },
     loadData() {
       // this.$Indicator.open('加载中...');

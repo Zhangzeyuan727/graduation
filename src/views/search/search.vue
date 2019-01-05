@@ -1,20 +1,10 @@
 <template>
   <div id="search">
     <div class="header">
-      <i
-        @click="close"
-        class="iconfont icon-25"
-      ></i>
+      <i @click="close" class="iconfont icon-25"></i>
       <div style="width:100%;margin-right:20px">
-        <el-input
-          placeholder="请输入内容"
-          v-model="keyword"
-          class="input-with-select"
-        >
-          <el-button
-            slot="append"
-            icon="el-icon-search"
-          ></el-button>
+        <el-input placeholder="请输入内容" v-model="keyword" class="input-with-select">
+          <el-button slot="append" icon="el-icon-search"></el-button>
         </el-input>
       </div>
     </div>
@@ -22,10 +12,7 @@
       <template v-if="showHistory&&!showSearchType">
         <div class="historySearchTop">
           <span class="history">历史搜索记录</span>
-          <span
-            @click="deleteBtn"
-            class="iconfont icon-trash-gray"
-          ></span>
+          <span @click="deleteBtn" class="iconfont icon-trash-gray"></span>
         </div>
         <div class="histories">
           <div
@@ -37,42 +24,25 @@
         </div>
       </template>
       <template v-if="showSearchType">
-        <div
-          class="searchType"
-          @click="goSearch('name')"
-        >
+        <div class="searchType" @click="goSearch('name')">
           <i class="iconfont icon-search"></i>
           <div class="type">按书名搜索:</div>
           <div class="keyWord">{{keyword}}</div>
         </div>
-        <div
-          class="searchType"
-          @click="goSearch('author')"
-        >
+        <div class="searchType" @click="goSearch('author')">
           <i class="iconfont icon-search"></i>
           <div class="type">按作者搜索:</div>
           <div class="keyWord">{{keyword}}</div>
         </div>
-        <div
-          class="searchType"
-          @click="goSearch('isbn')"
-        >
+        <div class="searchType" @click="goSearch('isbn')">
           <i class="iconfont icon-search"></i>
           <div class="type">按ISBN搜索:</div>
           <div class="keyWord">{{keyword}}</div>
         </div>
       </template>
       <div v-if="!showSearchType&&!showHistory">
-        <div
-          v-for="item in book"
-          :key="item.id"
-          class="searchBook"
-          @click="goDetail(item.id)"
-        >
-          <img
-            src="../../assets/bookImg/book-1.jpg"
-            alt
-          >
+        <div v-for="item in book" :key="item.id" class="searchBook" @click="goDetail(item.id)">
+          <img src="../../assets/bookImg/book-1.jpg" alt>
           <div class="searchBookContent">
             <span>{{item.name}}</span>
             <span>{{item.author.name}}</span>
@@ -81,8 +51,11 @@
         </div>
       </div>
       <div class="searchNodata" v-if="showNoData&&book.length==0">
-        <img src="../../assets/person/null.png" alt="">
-        <div class="null">暂无此书籍,<span @click="close">再逛逛</span></div>
+        <img src="../../assets/person/null.png" alt>
+        <div class="null">
+          暂无此书籍,
+          <span @click="close">再逛逛</span>
+        </div>
       </div>
     </div>
   </div>
@@ -138,13 +111,18 @@ export default {
       this.showHistory = false;
       this.book = [];
       this.$http
-        .searchBook(`pagination=false&keyname=${type}&keyvalue=${this.keyword}`)
+        .searchBook(
+          "pagination=false&keyname=" + type + "&keyvalue=" + this.keyword
+        )
         .then(res => {
           if (res.data.statusCode == 1) {
             if (res.data.results && res.data.results.length > 0) {
               this.book.push(...res.data.results);
             }
           }
+        })
+        .catch(err => {
+          console.log(err);
         });
       //将搜索记录保存在本地
       let historyBooks = JSON.parse(localStorage.getItem("historySearch"));
@@ -189,7 +167,8 @@ export default {
     goDetail(e) {
       localStorage.setItem("bookDetailId", e);
       this.$router.push({ path: "/bookDetail" });
-      this.$store.commit("changeDetailFrom", "search");
+      //本地保存跳转路径
+      localStorage.setItem("detailFrom", "search");
     },
     close() {
       this.$router.push({
@@ -340,7 +319,8 @@ export default {
           color: #333;
           font-size: 15px;
         }
-        span:nth-child(2), span:last-child {
+        span:nth-child(2),
+        span:last-child {
           color: #666;
           font-size: 13px;
         }

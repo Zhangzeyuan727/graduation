@@ -1,5 +1,8 @@
 <template>
   <div id="update">
+    <div class="updateTitle">
+      <i class="iconfont icon-25" @click="goBack"></i>修改密码
+    </div>
     <div class="logo"></div>
     <el-input v-model="user.name" placeholder="UserName"></el-input>
     <el-input v-model="user.pwd" type="password" placeholder="Password"></el-input>
@@ -20,6 +23,8 @@ export default {
     if (this.$store.state.showTab) {
       this.$store.commit("change");
     }
+    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    this.$store.commit("addToken", userInfo.uid);
   },
   methods: {
     goUpdate() {
@@ -37,6 +42,12 @@ export default {
               this.$toast({
                 message: "修改成功!"
               });
+              setTimeout(() => {
+                localStorage.removeItem("userInfo");
+                this.$router.push({
+                  name: "person"
+                });
+              }, 3000);
             }
           });
       } else {
@@ -44,6 +55,9 @@ export default {
           message: "用户名、密码不为空!"
         });
       }
+    },
+    goBack() {
+      this.$router.go(-1);
     }
   }
 };
@@ -62,6 +76,21 @@ export default {
   flex-direction: column;
   // align-items: center;
   justify-content: center;
+  .updateTitle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    > i {
+      position: absolute;
+      left: 4vw;
+    }
+  }
   .el-input__inner {
     width: 90%;
     height: 7vh;

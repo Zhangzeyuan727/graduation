@@ -27,6 +27,7 @@
           <p>装帧：<span>{{item.binding}}</span></p>
           <p>ISBN：<span>{{item.isbn}}</span></p>
         </div>
+        <div class="collection"><i class="iconfont icon-shoucang1"></i></div>
       </div>
       <div class="descriptionTitle">
         <div
@@ -108,7 +109,8 @@
         <div class="myReview">
           <div
             style="text-align:right"
-            @click="goReview" class="goReview"
+            @click="goReview"
+            class="goReview"
           >我要评论</div>
         </div>
       </div>
@@ -128,7 +130,7 @@ export default {
       collectList: [],
       reviewContentHeight: [],
       //来源
-      from:''
+      from: ""
     };
   },
   created() {
@@ -137,7 +139,7 @@ export default {
     }
     let id = localStorage.getItem("bookDetailId");
     this.loadData(id);
-    this.from=this.$store.state.from;
+    this.from = this.$store.state.from;
   },
   mounted() {
     //文章元素div
@@ -155,8 +157,8 @@ export default {
   methods: {
     back() {
       this.$router.push({
-        name:this.from
-      })
+        name: this.from
+      });
     },
     change(e) {
       this.active = e;
@@ -192,11 +194,11 @@ export default {
       if (userInfo) {
         this.$store.commit("addToken", userInfo.uid);
         this.$router.push({
-          path:'/review',
-          query:{
-            bookId:this.bookDetail[0].id
+          path: "/review",
+          query: {
+            bookId: this.bookDetail[0].id
           }
-        })
+        });
       } else {
         this.$router.push({ path: "/login", query: { from: "/bookDetail" } });
       }
@@ -341,6 +343,15 @@ export default {
           }
         }
       }
+      .collection {
+        width: 100%;
+        color: #666;
+        text-align: center;
+        padding-top: 10vh;
+        .icon-shoucang1 {
+          font-size: 26px;
+        }
+      }
     }
     .description {
       width: 100%;
@@ -405,7 +416,7 @@ export default {
       .myReview {
         padding: 0 10px;
         box-sizing: border-box;
-       .goReview{
+        .goReview {
           height: 30px;
           line-height: 30px;
           font-size: 12px;

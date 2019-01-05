@@ -2,48 +2,64 @@
   <div id="person">
     <div class="header">
       <template v-if="user">
-        <img src="../../assets/login/login.jpeg" alt class="personPic">
+        <img
+          src="../../assets/login/login.jpeg"
+          alt
+          class="personPic"
+        >
         <span>{{user.name}}</span>
       </template>
       <template v-if="!user">
-        <img src="../../assets/login/default.jpeg" alt class="personPic">
+        <img
+          src="../../assets/login/default.jpeg"
+          alt
+          class="personPic"
+        >
         <span>未知的人类</span>
       </template>
       <template v-if="!user">
-        <div class="loginButton" @click="goLogin">登录</div>
+        <div
+          class="loginButton"
+          @click="goLogin"
+        >登录</div>
         <p @click="goRegister">注册新账号</p>
       </template>
     </div>
     <div class="content">
-      <!-- <div> -->
-      <router-link to="/setting">
+      <div @click="goSetting()">
         <div class="contentWord">
           <span class="iconfont icon-shezhi"></span>
           <span>个人设置</span>
         </div>
         <span class="iconfont icon-right"></span>
-      </router-link>
-      <!-- </div> -->
-      <div>
+      </div>
+      <div @click="goCollection()">
         <div class="contentWord">
-          <span class="iconfont icon-guanzhu"></span>
-          <span>关于我们</span>
+          <span class="iconfont icon-shoucang1"></span>
+          <span>我的收藏</span>
         </div>
         <span class="iconfont icon-right"></span>
       </div>
       <div>
+        <div class="contentWord">
+          <span class="iconfont icon-6"></span>
+          <span>意见反馈</span>
+        </div>
+        <span class="iconfont icon-right"></span>
+      </div>
+      <div @click="clearBtn()">
+        <div class="contentWord">
+          <span class="iconfont icon-clear"></span>
+          <span>清除缓存</span>
+        </div>
+        <span class="iconfont icon-right"></span>
+      </div>
+      <div @click="check()">
         <div class="contentWord">
           <span class="iconfont icon-huojian"></span>
           <span>检查更新</span>
         </div>
         <span class="iconfont icon-right"></span>
-      </div>
-      <div>
-        <div class="contentWord">
-          <span class="iconfont icon-tuichu"></span>
-          <span>退出登录</span>
-        </div>
-        <!-- <span class="iconfont icon-right"></span> -->
       </div>
     </div>
   </div>
@@ -71,11 +87,58 @@ export default {
     goRegister() {
       this.$router.push({ path: "/register", query: { from: "/person" } });
     },
-    //修改用户信息
-    goUpdate() {
+    goSetting() {
+      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      if (userInfo) {
+        this.$store.commit("addToken", userInfo.uid);
+        this.$router.push({
+          path: "/setting"
+        });
+      } else {
+        this.$router.push({ path: "/login", query: { from: "/person" } });
+      }
+    },
+    goCollection() {
       this.$router.push({
-        path: "/update"
+        path: '/collection'
+      })
+    },
+    check() {
+      this.$toast({
+        message: "当前是最新版本了！"
       });
+    },
+    //清除缓存
+    clearBtn() {
+      if (localStorage.getItem("userInfo")) {
+        this.$messagebox
+          .confirm("", {
+            message: "确认清除缓存?",
+            confirmButtonClass: "searchconfirmButton",
+            confirmButtonText: "确认",
+            cancelButtonText: "考虑考虑"
+          })
+          .then(action => {
+            if (action == "confirm") {
+              this.$indicator.open({
+                text: "加载中...",
+                spinnerType: "fading-circle"
+              });
+              setTimeout(() => {
+                localStorage.removeItem("userInfo");
+                this.user = null;
+                this.$indicator.close();
+              }, 1000);
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else {
+        this.$toast({
+          message: "缓存已经清了哟！"
+        });
+      }
     }
   }
 };
@@ -132,8 +195,7 @@ export default {
     }
   }
   .content {
-    > div,
-    > a {
+    > div {
       height: 8vh;
       box-sizing: border-box;
       margin: 0 20px;
@@ -165,5 +227,8 @@ export default {
       }
     }
   }
+}
+.searchconfirmButton {
+  color: #91b493;
 }
 </style>

@@ -44,7 +44,13 @@ export default {
     if (!this.$store.state.showTab) {
       this.$store.commit("change");
     }
-    this.loadData();
+    this.$indicator.open({
+      spinnerType: "fading-circle"
+    });
+    setTimeout(() => {
+      this.loadData();
+      this.$indicator.close();
+    },200);
   },
   methods: {
     goDetail(id) {

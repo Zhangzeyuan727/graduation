@@ -135,12 +135,13 @@ export default {
       isCollect:false
     };
   },
-  created() {
+  async created() {
     if (!this.$store.state.showTab) {
       this.$store.commit("change");
     }
     let id = localStorage.getItem("bookDetailId");
-    this.loadData(id);
+    await this.loadData(id);
+    await this.checkCollect(id);
     this.from = localStorage.getItem('detailFrom');
   },
   mounted() {
@@ -162,13 +163,37 @@ export default {
         name: this.from
       });
     },
+    //判断该图书是否已被该读者收藏
+    async checkCollect(id){
+       let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        let temporaryArr=[];
+       if(userInfo){
+             this.$store.commit("addToken", userInfo.uid);
+      await this.$http.getlCollectBook("pagination=false").then(res => {
+        if (res.data.statusCode == 1) {
+          if (res.data.results && res.data.results.length > 0) {
+            temporaryArr.push(...res.data.results);
+          }
+        }
+      });
+      if(temporaryArr.length>0){
+        temporaryArr.forEach(item=>{
+          if(item.bookId=id){
+             this.isCollect=true
+          }
+        })
+      }else{
+       this.isCollect=false
+      }
+          }
+    },
     change(e) {
       this.active = e;
     },
     async loadData(id) {
       await this.$http.queryBookById("id=" + id).then(res => {
         if (res.data.statusCode === 1) {
-          this.bookDetail = res.data.results;
+            this.bookDetail = res.data.results;
           this.value = Number(
             parseFloat(this.bookDetail[0].score - 5).toFixed(1)
           );

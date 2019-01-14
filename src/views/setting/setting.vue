@@ -40,34 +40,7 @@ export default {
     back() {
       this.$router.go(-1);
     },
-    goUpdata() {
-      this.$router.push({
-        path: "/update"
-      });
-    },
-    signOut() {
-      this.$messagebox
-        .confirm("", {
-          message: "确认退出登录?",
-          confirmButtonClass: "searchconfirmButton",
-          confirmButtonText: "确认",
-          cancelButtonText: "考虑考虑"
-        })
-        .then(action => {
-          if (action == "confirm") {
-            this.$indicator.open({
-              spinnerType: "fading-circle"
-            });
-            setTimeout(() => {
-              localStorage.removeItem("userInfo");
-              this.$router.push({
-                path: "/person"
-              });
-              this.$indicator.close();
-            }, 1500);
-          }
-        });
-    }
+    
   }
 };
 </script>

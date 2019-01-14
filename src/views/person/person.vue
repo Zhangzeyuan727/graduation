@@ -2,26 +2,30 @@
   <div id="person">
     <div class="header">
       <template v-if="user">
-        <img src="../../assets/login/login.jpeg" alt class="personPic">
+        <img
+          src="../../assets/login/login.jpeg"
+          alt
+          class="personPic"
+        >
         <span>{{user.name}}</span>
       </template>
       <template v-if="!user">
-        <img src="../../assets/login/default.jpeg" alt class="personPic">
+        <img
+          src="../../assets/login/default.jpeg"
+          alt
+          class="personPic"
+        >
         <span>未知的人类</span>
       </template>
       <template v-if="!user">
-        <div class="loginButton" @click="goLogin">登录</div>
+        <div
+          class="loginButton"
+          @click="goLogin"
+        >登录</div>
         <p @click="goRegister">注册新账号</p>
       </template>
     </div>
     <div class="content">
-      <div @click="goSetting()">
-        <div class="contentWord">
-          <span class="iconfont icon-shezhi"></span>
-          <span>个人设置</span>
-        </div>
-        <span class="iconfont icon-right"></span>
-      </div>
       <div @click="goCollection">
         <div class="contentWord">
           <span class="iconfont icon-shoucang1"></span>
@@ -50,14 +54,37 @@
         </div>
         <span class="iconfont icon-right"></span>
       </div>
+      <div @click="goSetting()">
+        <div class="contentWord">
+          <span class="iconfont icon-shezhi"></span>
+          <span>个人设置</span>
+        </div>
+        <span class="iconfont icon-right"></span>
+      </div>
     </div>
+    <mt-actionsheet
+      :actions="actions"
+      v-model="sheetVisible"
+    >
+    </mt-actionsheet>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      user: null
+      user: null,
+      actions: [
+        {
+          name: '修改个人信息',
+          method: this.goUpdata
+        }, 
+        {
+          name: '退出登录',
+          method: this.signOut
+        }
+      ],
+      sheetVisible: false
     };
   },
   created() {
@@ -77,15 +104,16 @@ export default {
       this.$router.push({ path: "/register", query: { from: "/person" } });
     },
     goSetting() {
-      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-      if (userInfo) {
-        this.$store.commit("addToken", userInfo.uid);
-        this.$router.push({
-          path: "/setting"
-        });
-      } else {
-        this.$router.push({ path: "/login", query: { from: "/person" } });
-      }
+      // let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      // if (userInfo) {
+      //   this.$store.commit("addToken", userInfo.uid);
+      //   this.$router.push({
+      //     path: "/setting"
+      //   });
+      // } else {
+      //   this.$router.push({ path: "/login", query: { from: "/person" } });
+      // }
+      this.sheetVisible = true;
     },
     goCollection() {
       this.$router.push({
@@ -134,7 +162,35 @@ export default {
         });
       }
     }
-  }
+  },
+  goUpdata() {
+      this.$router.push({
+        path: "/update"
+      });
+    },
+    signOut() {
+      this.$messagebox
+        .confirm("", {
+          message: "确认退出登录?",
+          confirmButtonClass: "searchconfirmButton",
+          confirmButtonText: "确认",
+          cancelButtonText: "考虑考虑"
+        })
+        .then(action => {
+          if (action == "confirm") {
+            this.$indicator.open({
+              spinnerType: "fading-circle"
+            });
+            setTimeout(() => {
+              localStorage.removeItem("userInfo");
+              this.$router.push({
+                path: "/person"
+              });
+              this.$indicator.close();
+            }, 1500);
+          }
+        });
+    }
 };
 </script>
 

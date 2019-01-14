@@ -1,12 +1,25 @@
 <template>
   <div id="update">
     <div class="updateTitle">
-      <i class="iconfont icon-25" @click="goBack"></i>修改密码
+      <i
+        class="iconfont icon-25"
+        @click="goBack"
+      ></i>修改密码
     </div>
     <div class="logo"></div>
-    <el-input v-model="user.name" placeholder="UserName"></el-input>
-    <el-input v-model="user.pwd" type="password" placeholder="Password"></el-input>
-    <div class="confirm" @click="goUpdate">confirm</div>
+    <el-input
+      v-model="user.name"
+      placeholder="UserName"
+    ></el-input>
+    <el-input
+      v-model="user.pwd"
+      type="password"
+      placeholder="Password"
+    ></el-input>
+    <div
+      class="confirm"
+      @click="goUpdate"
+    >confirm</div>
   </div>
 </template>
 <script>
@@ -27,6 +40,9 @@ export default {
     this.$store.commit("addToken", userInfo.uid);
   },
   methods: {
+    back() {
+      this.$router.go(-1);
+    },
     goUpdate() {
       if (
         this.user.name.replace(/\s*/g, "") &&
@@ -101,6 +117,41 @@ export default {
     padding: 0;
     margin-bottom: 20px;
     background-color: rgba(255, 255, 255, 0.1);
+
+    .header {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 48px;
+      font-size: 15px;
+      .icon-25 {
+        color: #c7d0b9;
+        font-size: 20px;
+        padding: 10px;
+      }
+    }
+    .content {
+      position: absolute;
+      top: 48px;
+      left: 0;
+      right: 0;
+      bottom: 100px;
+      display: flex;
+      flex-direction: column;
+      // align-items: center;
+      justify-content: center;
+      .el-input__inner {
+        width: 90%;
+        height: 7vh;
+        margin-left: 5%;
+        border: none;
+        border-bottom: 1px solid #eee;
+        color: rgba(0, 0, 0, 0.2);
+        padding: 0;
+        margin-bottom: 20px;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
   }
   .confirm {
     color: rgba(0, 0, 0, 0.2);

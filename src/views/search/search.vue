@@ -54,7 +54,7 @@
         <img src="../../assets/person/null.png" alt>
         <div class="null">
           暂无此书籍,
-          <span @click="close">再逛逛</span>
+          <span @click="goBooks">再逛逛</span>
         </div>
       </div>
     </div>
@@ -173,6 +173,11 @@ export default {
     close() {
       this.$router.push({
         name: "home"
+      });
+    },
+    goBooks() {
+      this.$router.push({
+        name: "books"
       });
     }
   }

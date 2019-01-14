@@ -110,16 +110,20 @@ export default {
     z-index: -1;
   }
   .loginTitle {
-    height: 10vh;
+    height: 8vh;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 0 4vw;
+    padding-right: 4vw;
     // color: #616138;
     color: #fff;
     &span:nth-child(2) {
       font-size: 15px;
+    }
+    .icon-25 {
+      font-size: 20px;
+      padding: 10px;
     }
   }
   .loginHeader {

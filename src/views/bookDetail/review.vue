@@ -10,7 +10,7 @@
     <div class="reviewContentView">
       <el-rate class="star" v-model="review" show-text style="text-align:center;margin:40px 0"></el-rate>
       <div class="addReviewAd">
-        <img src="../.././assets/review/illustration.jpeg">
+        <!-- <img src="../.././assets/review/illustration.jpeg"> -->
       </div>
       <div class="addReviewTitle">
         <input type="text" placeholder="添加标题" v-model="reviewTitle">
@@ -93,23 +93,30 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  background-image: url("../.././assets/person/settingBG.jpg");
+  background-size: 100% 100%;
+  overflow-x: hidden;
   overflow-y: scroll;
   .reviewHead {
     height: 8vh;
     box-sizing: border-box;
     border-bottom: 1px solid #eee;
-    padding: 0 20px;
+    padding-right: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     > div {
       .writeReview {
         font-size: 14px;
-        margin-left: 10px;
+        color: #333;
       }
     }
     > span {
       font-size: 14px;
+    }
+    .icon-25 {
+      padding: 10px;
+      color: #333;
     }
   }
   .reviewContentView {
@@ -129,7 +136,7 @@ export default {
       }
     }
     .addReviewAd {
-      height: 14vh;
+      height: 4vh;
       box-sizing: border-box;
       border-top: 1px solid #eee;
       margin: 0;

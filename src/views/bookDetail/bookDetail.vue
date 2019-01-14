@@ -27,8 +27,21 @@
           <p>装帧：<span>{{item.binding}}</span></p>
           <p>ISBN：<span>{{item.isbn}}</span></p>
         </div>
-        <div class="collection" v-if="isCollect"><i style="font-size:26px;color:red"  class="iconfont icon-shoucang" @click="goCollect"></i></div>
-        <div class="collection" v-else><i class="iconfont icon-shoucang1" @click="goCollect"></i></div>
+        <div
+          class="collection"
+          v-if="isCollect"
+        ><i
+            style="font-size:28px;color:#eb7a77"
+            class="iconfont icon-shoucang"
+            @click="goCollect"
+          ></i></div>
+        <div
+          class="collection"
+          v-else
+        ><i
+            class="iconfont icon-shoucang1"
+            @click="goCollect"
+          ></i></div>
       </div>
       <div class="descriptionTitle">
         <div
@@ -132,7 +145,7 @@ export default {
       reviewContentHeight: [],
       //来源
       from: "",
-      isCollect:false
+      isCollect: false
     };
   },
   async created() {
@@ -142,7 +155,7 @@ export default {
     let id = localStorage.getItem("bookDetailId");
     await this.loadData(id);
     await this.checkCollect(id);
-    this.from = localStorage.getItem('detailFrom');
+    this.from = localStorage.getItem("detailFrom");
   },
   mounted() {
     //文章元素div
@@ -164,28 +177,28 @@ export default {
       });
     },
     //判断该图书是否已被该读者收藏
-    async checkCollect(id){
-       let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-        let temporaryArr=[];
-       if(userInfo){
-             this.$store.commit("addToken", userInfo.uid);
-      await this.$http.getlCollectBook("pagination=false").then(res => {
-        if (res.data.statusCode == 1) {
-          if (res.data.results && res.data.results.length > 0) {
-            temporaryArr.push(...res.data.results);
+    async checkCollect(id) {
+      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      let temporaryArr = [];
+      if (userInfo) {
+        this.$store.commit("addToken", userInfo.uid);
+        await this.$http.getlCollectBook("pagination=false").then(res => {
+          if (res.data.statusCode == 1) {
+            if (res.data.results && res.data.results.length > 0) {
+              temporaryArr.push(...res.data.results);
+            }
           }
+        });
+        if (temporaryArr.length > 0) {
+          temporaryArr.forEach(item => {
+            if ((item.book.id == id)) {
+              this.isCollect = true;
+            }
+          });
+        } else {
+          this.isCollect = false;
         }
-      });
-      if(temporaryArr.length>0){
-        temporaryArr.forEach(item=>{
-          if(item.bookId=id){
-             this.isCollect=true
-          }
-        })
-      }else{
-       this.isCollect=false
       }
-          }
     },
     change(e) {
       this.active = e;
@@ -193,7 +206,7 @@ export default {
     async loadData(id) {
       await this.$http.queryBookById("id=" + id).then(res => {
         if (res.data.statusCode === 1) {
-            this.bookDetail = res.data.results;
+          this.bookDetail = res.data.results;
           this.value = Number(
             parseFloat(this.bookDetail[0].score - 5).toFixed(1)
           );
@@ -231,36 +244,40 @@ export default {
       }
     },
     //收藏
-    goCollect(){
-    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    goCollect() {
+      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
       if (userInfo) {
         this.$store.commit("addToken", userInfo.uid);
-        if(this.isCollect){
-             this.$http.cancelCollectBook({
-            book_id:this.bookDetail[0].id
-          }).then(res=>{
-            if(res.data.statusCode==1){
-              this.isCollect=false
-              this.$toast({
-                message: "取消收藏"
-              });
-            }
-          })
-        }else{
-          this.$http.collectBook({
-            book_id:this.bookDetail[0].id
-          }).then(res=>{
-            if(res.data.statusCode==1){
-              this.isCollect=true;
-              this.$toast({
-                message: "收藏成功"
-              });
-            }else if(res.data.statusCode==2){
-              this.$toast({
-                message: "此图书已被收藏"
-              });
-            }
-          })
+        if (this.isCollect) {
+          this.$http
+            .cancelCollectBook({
+              book_id: this.bookDetail[0].id
+            })
+            .then(res => {
+              if (res.data.statusCode == 1) {
+                this.isCollect = false;
+                this.$toast({
+                  message: "取消收藏"
+                });
+              }
+            });
+        } else {
+          this.$http
+            .collectBook({
+              book_id: this.bookDetail[0].id
+            })
+            .then(res => {
+              if (res.data.statusCode == 1) {
+                this.isCollect = true;
+                this.$toast({
+                  message: "收藏成功"
+                });
+              } else if (res.data.statusCode == 2) {
+                this.$toast({
+                  message: "此图书已被收藏"
+                });
+              }
+            });
         }
       } else {
         this.$router.push({ path: "/login", query: { from: "/bookDetail" } });

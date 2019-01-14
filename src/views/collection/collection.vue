@@ -1,7 +1,10 @@
 <template>
   <div id="collection">
     <div class="header">
-      <i @click="back" class="iconfont icon-25"></i>
+      <i
+        @click="back"
+        class="iconfont icon-25"
+      ></i>
       <p>
         <i class="iconfont icon-shoucang"></i> 收藏列表
         <i class="iconfont icon-shoucang"></i>
@@ -15,7 +18,10 @@
           :key="item.id"
           @click="goDetail(item.book.id)"
         >
-          <img src="../.././assets/bookImg/book-1.jpg" alt>
+          <img
+            src="../.././assets/bookImg/book-1.jpg"
+            alt
+          >
           <p>{{item.book.name}}</p>
           <p>{{item.book.author.name}}</p>
           <p>{{item.book.publishingFirm}}</p>
@@ -23,6 +29,19 @@
             <i class="iconfont icon-shoucang"></i>
           </div>
         </div>
+      </div>
+    </div>
+    <div
+      class="searchNodata"
+      v-if="bookList.length==0"
+    >
+      <img
+        src="../../assets/person/null.png"
+        alt
+      >
+      <div class="null">
+        还没有书哦,
+        <span @click="goBooks">去收藏</span>
       </div>
     </div>
   </div>
@@ -68,6 +87,11 @@ export default {
       this.$router.push({
         name: "person"
       });
+    },
+    goBooks() {
+      this.$router.push({
+        name: "books"
+      });
     }
   }
 };
@@ -81,6 +105,7 @@ export default {
   right: 0;
   bottom: 0;
   overflow: hidden;
+  background-color: #f0f1f5;
   .header {
     display: flex;
     align-items: center;
@@ -117,14 +142,14 @@ export default {
       column-count: 2;
       column-gap: 4%;
       column-width: 45%;
-      //m每一列图片包含层
+      //每一列图片包含层
       .collection {
         margin-bottom: 10px;
         //防止多列布局，分页媒体和多区域上下文的意外中断
         break-inside: avoid;
         // box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
         border-radius: 4px;
-        border: 1px solid #eee;
+        border: 1px solid #ddd;
         overflow: hidden;
         img {
           width: 100%;
@@ -145,6 +170,21 @@ export default {
           }
         }
       }
+    }
+  }
+  .searchNodata {
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 13px;
+    color: #333;
+    .null {
+      text-align: center;
+      margin-top: 3vh;
+    }
+    span {
+      color: #91b493;
     }
   }
 }

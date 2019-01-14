@@ -50,7 +50,7 @@ export default {
     setTimeout(() => {
       this.loadData();
       this.$indicator.close();
-    }, 200);
+    },200);
   },
   methods: {
     goDetail(id) {

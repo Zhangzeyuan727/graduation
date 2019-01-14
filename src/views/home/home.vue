@@ -60,7 +60,7 @@
           </div>
         </div>
         <div class="books">
-          <div class="book" v-for="item in recommend" :key="item.id" @click="goDetail(item.id)">
+          <div class="book" v-for="item in news" :key="item.id" @click="goDetail(item.id)">
             <img src="../.././assets/bookImg/book-1.jpg">
             <p class="name">{{item.name}}</p>
             <p class="author">{{item.author.name}}</p>
@@ -76,7 +76,8 @@ export default {
   name: "home",
   data() {
     return {
-      recommend: []
+      recommend: [],
+      news: []
     };
   },
   created() {
@@ -107,6 +108,7 @@ export default {
           if (it.binding === "精装") {
             temporaryArr.push(it);
           }
+          this.news = this.getRandomArrayElements(res.data.results,8);
         });
         this.recommend = this.getRandomArrayElements(temporaryArr, 8);
       });

@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div id="advice">
     <div class="adviceHead">
-      <i class="iconfont icon-25 adviceBack" @click="goBack"></i> 意见反馈
+      <i
+        class="iconfont icon-25 adviceBack"
+        @click="goBack"
+      ></i> 意见反馈
     </div>
     <p class="adviceWord">如果您在使用本APP的过程中遇到任何问题，请留下您的宝贵意见和联系方式，我们会及时与您取得联系:</p>
     <textarea
@@ -12,12 +15,24 @@
       placeholder="请填写意见反馈"
       v-model="advice.message"
     ></textarea>
-    <input class="advicePhone" type="text" placeholder="请填写11位手机号码" v-model="advice.phone">
+    <input
+      class="advicePhone"
+      type="text"
+      placeholder="请填写11位手机号码"
+      v-model="advice.phone"
+    >
     <p class="star">
       <span>请为我们评分:</span>
-      <el-rate v-model="advice.star" show-text></el-rate>
+      <el-rate
+        v-model="advice.star"
+        show-text
+      ></el-rate>
     </p>
-    <div class="adviceConfirmButton" :class="isWrite" @click="goConfirm">确认提交</div>
+    <div
+      class="adviceConfirmButton"
+      :class="isWrite"
+      @click="goConfirm"
+    >确认提交</div>
   </div>
 </template>
 <script>
@@ -80,86 +95,95 @@ export default {
   }
 };
 </script>
-<style>
-.adviceHead {
-  height: 8vh;
-  box-sizing: border-box;
-  border-bottom: 1px solid #f0eff4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-}
-.adviceBack {
+<style lang='scss'>
+#advice {
   position: absolute;
-  left: 4vw;
-  color: #bbd2c2;
-}
-.adviceWord {
-  margin: 15px 4vw;
-  font-size: 12px;
-}
-.adviceMessage,
-.advicePhone {
-  margin-left: 4vw;
-  width: calc(100% - 8vw);
-  border: 1px solid #f0eff4;
-  border-radius: 4px;
-  outline: none;
-  box-sizing: border-box;
-  padding-left: 8px;
-}
-.adviceMessage::-webkit-input-placeholder {
-  line-height: 20px;
-  font-size: 12px;
-}
-.adviceMessage {
-  height: 15vh;
-  line-height: 20px;
-}
-.advicePhone {
-  height: 6vh;
-  margin-top: 15px;
-}
-.star {
-  margin-left: 4vw;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-}
-.star > span {
-  font-size: 12px;
-  margin-bottom: 30px;
-}
-.adviceConfirmButton {
-  margin-left: 4vw;
-  margin-top: 20px;
-  width: calc(100% - 8vw);
-  height: 6vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: #fff;
-  border-radius: 4px;
-}
-.adviceChecked {
-  background-color: rgb(189, 210, 194);
-}
-.adviceUnchecked {
-  background-color: rgba(189, 210, 194, 0.4);
-}
-.el-rate {
-  text-align: center;
-  position: relative;
-}
-.el-rate__text {
-  width: 30px;
-  text-align: center;
-  position: absolute;
-  left: 50%;
-  margin-left: -15px;
-  top: -20px;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  .adviceHead {
+    height: 8vh;
+    box-sizing: border-box;
+    border-bottom: 1px solid #f0eff4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .adviceBack {
+    position: absolute;
+    left: 1vw;
+    color: #bbd2c2;
+    padding: 10px;
+    font-size: 20px;
+  }
+  .adviceWord {
+    margin: 15px 4vw;
+    font-size: 12px;
+  }
+  .adviceMessage,
+  .advicePhone {
+    margin-left: 4vw;
+    width: calc(100% - 8vw);
+    border: 1px solid #f0eff4;
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    padding-left: 8px;
+  }
+  .adviceMessage::-webkit-input-placeholder {
+    line-height: 20px;
+    font-size: 12px;
+  }
+  .adviceMessage {
+    height: 15vh;
+    line-height: 20px;
+  }
+  .advicePhone {
+    height: 6vh;
+    margin-top: 15px;
+  }
+  .star {
+    margin-left: 4vw;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .star > span {
+    font-size: 12px;
+    margin-bottom: 30px;
+  }
+  .adviceConfirmButton {
+    margin-left: 4vw;
+    margin-top: 20px;
+    width: calc(100% - 8vw);
+    height: 6vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 4px;
+  }
+  .adviceChecked {
+    background-color: rgb(189, 210, 194);
+  }
+  .adviceUnchecked {
+    background-color: rgba(189, 210, 194, 0.4);
+  }
+  .el-rate {
+    text-align: center;
+    position: relative;
+  }
+  .el-rate__text {
+    width: 30px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    margin-left: -15px;
+    top: -20px;
+  }
 }
 </style>
 

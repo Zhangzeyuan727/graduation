@@ -2,26 +2,15 @@
   <div id="person">
     <div class="header">
       <template v-if="user">
-        <img
-          src="../../assets/login/login.jpeg"
-          alt
-          class="personPic"
-        >
+        <img src="../../assets/login/login.jpeg" alt class="personPic">
         <span>{{user.name}}</span>
       </template>
       <template v-if="!user">
-        <img
-          src="../../assets/login/default.jpeg"
-          alt
-          class="personPic"
-        >
+        <img src="../../assets/login/default.jpeg" alt class="personPic">
         <span>未知的人类</span>
       </template>
       <template v-if="!user">
-        <div
-          class="loginButton"
-          @click="goLogin"
-        >登录</div>
+        <div class="loginButton" @click="goLogin">登录</div>
         <p @click="goRegister">注册新账号</p>
       </template>
     </div>
@@ -40,21 +29,21 @@
         </div>
         <span class="iconfont icon-right"></span>
       </div>
-      <div @click="clearBtn()">
+      <div @click="clearBtn">
         <div class="contentWord">
           <span class="iconfont icon-clear"></span>
           <span>清除缓存</span>
         </div>
         <span class="iconfont icon-right"></span>
       </div>
-      <div @click="check()">
+      <div @click="check">
         <div class="contentWord">
           <span class="iconfont icon-huojian"></span>
           <span>检查更新</span>
         </div>
         <span class="iconfont icon-right"></span>
       </div>
-      <div @click="goSetting()">
+      <div @click="goSetting">
         <div class="contentWord">
           <span class="iconfont icon-shezhi"></span>
           <span>个人设置</span>
@@ -62,11 +51,7 @@
         <span class="iconfont icon-right"></span>
       </div>
     </div>
-    <mt-actionsheet
-      :actions="actions"
-      v-model="sheetVisible"
-    >
-    </mt-actionsheet>
+    <mt-actionsheet :actions="actions" v-model="sheetVisible"></mt-actionsheet>
   </div>
 </template>
 <script>
@@ -76,11 +61,11 @@ export default {
       user: null,
       actions: [
         {
-          name: '修改个人信息',
+          name: "修改个人信息",
           method: this.goUpdata
-        }, 
+        },
         {
-          name: '退出登录',
+          name: "退出登录",
           method: this.signOut
         }
       ],
@@ -104,15 +89,6 @@ export default {
       this.$router.push({ path: "/register", query: { from: "/person" } });
     },
     goSetting() {
-      // let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-      // if (userInfo) {
-      //   this.$store.commit("addToken", userInfo.uid);
-      //   this.$router.push({
-      //     path: "/setting"
-      //   });
-      // } else {
-      //   this.$router.push({ path: "/login", query: { from: "/person" } });
-      // }
       this.sheetVisible = true;
     },
     goCollection() {
@@ -161,9 +137,8 @@ export default {
           message: "缓存已经清了哟！"
         });
       }
-    }
-  },
-  goUpdata() {
+    },
+    goUpdata() {
       this.$router.push({
         path: "/update"
       });
@@ -191,6 +166,7 @@ export default {
           }
         });
     }
+  }
 };
 </script>
 

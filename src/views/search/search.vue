@@ -2,10 +2,11 @@
   <div id="search">
     <div class="header">
       <i @click="close" class="iconfont icon-25"></i>
-      <div style="width:100%;margin-right:20px">
+      <div style="width:100%;margin-right:20px;position:relative">
         <el-input placeholder="请输入内容" v-model="keyword" class="input-with-select">
           <el-button slot="append" icon="el-icon-search"></el-button>
         </el-input>
+        <i v-show="showIcon" class="iconfont icon-49shurushanchu-2" @click="goDelete"></i>
       </div>
     </div>
     <div class="content">
@@ -20,7 +21,10 @@
             :key="index"
             class="historySearchContent"
             @click="goSelect(item)"
-          >{{item}}</div>
+          >
+            <i class="iconfont icon-49shurushanchu-2 item" @click.stop="goDeleteItem(index)"></i>
+            {{item}}
+          </div>
         </div>
       </template>
       <template v-if="showSearchType">
@@ -76,7 +80,8 @@ export default {
       //显示历史记录
       showHistory: true,
       book: [],
-      showNoData: false
+      showNoData: false,
+      showIcon: false
     };
   },
   created() {
@@ -92,8 +97,10 @@ export default {
     keyword(val) {
       if (val.replace(/\s*/g, "")) {
         this.showSearchType = true;
+        this.showIcon = true;
       } else {
         this.showSearchType = false;
+        this.showIcon = false;
         let historyBooks = JSON.parse(localStorage.getItem("historySearch"));
         if (historyBooks) {
           this.historyList = historyBooks;
@@ -102,7 +109,6 @@ export default {
       }
     }
   },
-  components: {},
   methods: {
     //搜索图书
     goSearch(type) {
@@ -160,6 +166,16 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    goDeleteItem(e) {
+      let historyBooks = JSON.parse(localStorage.getItem("historySearch"));
+      historyBooks.splice(e, 1);
+      this.historyList.splice(e, 1);
+      localStorage.setItem("historySearch", JSON.stringify(historyBooks));
+    },
+    goDelete() {
+      this.keyword = "";
+      this.showIcon = false;
     },
     goSelect(e) {
       this.keyword = e;
@@ -226,7 +242,13 @@ export default {
   .el-button {
     padding: 12px;
   }
-
+  .icon-49shurushanchu-2 {
+    font-size: 18px;
+    position: absolute;
+    top: 0.9vh;
+    right: 16vw;
+    color: #ccc;
+  }
   .el-icon-search {
     color: #bbd2c2;
   }
@@ -273,6 +295,12 @@ export default {
       font-size: 13px;
       color: #333;
       margin-bottom: 8px;
+      position: relative;
+      .item {
+        position: absolute;
+        right: -7px;
+        top: -9px;
+      }
     }
     .searchType {
       height: 9vh;

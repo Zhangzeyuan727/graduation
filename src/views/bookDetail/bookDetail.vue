@@ -84,7 +84,6 @@
           :class="'review ' + 'reviewContents' + index"
           :key="index"
         >
-          <!-- <div > -->
           <div class="reviewTitle">
             <img
               v-if="reviewItem.user_id==1"
@@ -124,9 +123,7 @@
             @click="seeAll(reviewItem, index)"
             v-if="reviewItem.isAppear"
           >{{!reviewItem.isShow ? '展开' : '收起'}}</button>
-          <!-- </div> -->
         </div>
-        <!-- <div style="position:fixed;left:0;bottom:10vh; color:red" @click="goCollect">收藏</div> -->
         <div class="myReview">
           <div
             style="text-align:right"
@@ -150,8 +147,6 @@ export default {
       //收藏列表
       collectList: [],
       reviewContentHeight: [],
-      //来源
-      from: "",
       isCollect: false
     };
   },
@@ -162,13 +157,12 @@ export default {
     let id = localStorage.getItem("bookDetailId");
     await this.loadData(id);
     await this.checkCollect(id);
-    this.from = localStorage.getItem("detailFrom");
   },
   mounted() {},
   methods: {
     back() {
       this.$router.push({
-        name: this.from
+        name: localStorage.getItem('detailFrom')
       });
     },
     //判断该图书是否已被该读者收藏

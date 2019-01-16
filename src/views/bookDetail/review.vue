@@ -71,7 +71,7 @@ export default {
                 this.$router.push({
                   name: "bookDetail"
                 });
-              }, 3000);
+              }, 1500);
             }
           });
       } else {

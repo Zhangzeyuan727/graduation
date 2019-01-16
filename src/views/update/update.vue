@@ -63,12 +63,12 @@ export default {
                 this.$router.push({
                   name: "person"
                 });
-              }, 3000);
+              }, 1500);
             }
           });
       } else {
         this.$toast({
-          message: "用户名、密码不为空!"
+          message: "用户名或密码不为空!"
         });
       }
     },
@@ -97,14 +97,17 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    height: 10vh;
+    height: 8vh;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
+    color: #666;
     > i {
       position: absolute;
-      left: 4vw;
+      left: 0;
+      padding: 10px;
+      font-size: 20px;
     }
   }
   .el-input__inner {

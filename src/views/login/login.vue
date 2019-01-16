@@ -2,27 +2,50 @@
   <div id="login">
     <div class="loginBg"></div>
     <div class="loginTitle">
-      <i class="iconfont icon-25" @click="goBack"></i>
+      <i
+        class="iconfont icon-25"
+        @click="goBack"
+      ></i>
       <span>登录</span>
       <span @click="goRegister">注册</span>
     </div>
     <div class="loginHeader">
-      <img src="../../assets/login/header.jpg" alt>
+      <img
+        src="../../assets/login/header.jpg"
+        alt
+      >
     </div>
-    <div class="loginName" style="margin-bottom:20px">
+    <div
+      class="loginName"
+      style="margin-bottom:20px"
+    >
       <span>用户名</span>
       <div>
-        <input type="text" v-model="user.name" class="loginInput">
+        <input
+          type="text"
+          v-model="user.name"
+          class="loginInput"
+        >
       </div>
     </div>
     <div class="loginName">
       <span>密码</span>
       <div>
-        <input type="password" v-model="user.pwd" class="loginInput">
+        <input
+          type="password"
+          v-model="user.pwd"
+          class="loginInput"
+        >
       </div>
     </div>
-    <div class="loginBtn" @click="goLogin">登录</div>
-    <div class="loginPlus" @click="goRegister">
+    <div
+      class="loginBtn"
+      @click="goLogin"
+    >登录</div>
+    <div
+      class="loginPlus"
+      @click="goRegister"
+    >
       <i class="iconfont icon-jia1"></i>
     </div>
   </div>
@@ -173,9 +196,9 @@ export default {
     border: 1px solid #eee;
   }
   .loginPlus {
-    width: 10vw;
-    height: 10vw;
-    border: 2px solid #fff;
+    width: 8vw;
+    height: 8vw;
+    border: 1px solid #fff;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -185,6 +208,8 @@ export default {
     bottom: 5vh;
     > i {
       color: #fff;
+      font-size: 14px;
+      line-height: 6vh;
     }
   }
 }

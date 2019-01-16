@@ -89,7 +89,21 @@ export default {
       this.$router.push({ path: "/register", query: { from: "/person" } });
     },
     goSetting() {
-      this.sheetVisible = true;
+      let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      // if (userInfo) {
+      //   this.$store.commit("addToken", userInfo.uid);
+      //   this.$router.push({
+      //     path: "/setting"
+      //   });
+      // } else {
+      //   this.$router.push({ path: "/login", query: { from: "/person" } });
+      // }
+      if (userInfo) {
+        this.$store.commit("addToken", userInfo.uid);
+        this.sheetVisible = true;
+      } else {
+        this.$router.push({ path: "/login", query: { from: "/person" } });
+      }
     },
     goCollection() {
       this.$router.push({
@@ -158,9 +172,7 @@ export default {
             });
             setTimeout(() => {
               localStorage.removeItem("userInfo");
-              this.$router.push({
-                path: "/person"
-              });
+              this.user = null;
               this.$indicator.close();
             }, 1500);
           }
@@ -256,5 +268,8 @@ export default {
 }
 .searchconfirmButton {
   color: #91b493;
+}
+.mint-actionsheet-listitem, .mint-actionsheet-button {
+  font-size: 15px;
 }
 </style>

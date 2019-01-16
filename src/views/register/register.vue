@@ -1,26 +1,26 @@
 <template>
-  <div id="login">
-    <div class="loginBg"></div>
+  <div id="register">
+    <div class="registerBg"></div>
     <div class="RegisterTitle">
       <i class="iconfont icon-25" @click="goBack"></i>
       <span>注册</span>
     </div>
-    <div class="loginHeader">
+    <div class="registerHeader">
       <img src="../../assets/login/header.jpg" alt>
     </div>
-    <div class="loginName" style="margin-bottom:20px">
+    <div class="registerName" style="margin-bottom:20px">
       <span>用户名</span>
       <div>
-        <input type="text" v-model="user.name" class="loginInput">
+        <input type="text" v-model="user.name" class="registerInput">
       </div>
     </div>
-    <div class="loginName">
+    <div class="registerName">
       <span>密码</span>
       <div>
-        <input type="password" v-model="user.pwd" class="loginInput">
+        <input type="password" v-model="user.pwd" class="registerInput">
       </div>
     </div>
-    <div class="loginBtn" @click="goRegister">注册</div>
+    <div class="registerBtn" @click="goRegister">注册</div>
   </div>
 </template>
 
@@ -66,11 +66,11 @@ export default {
                     localStorage.setItem("userInfo", JSON.stringify(this.user));
                     this.$toast({
                       message: "注册成功",
-                      duration: 3000
+                      duration: 1500
                     });
                     setTimeout(() => {
                       this.$router.push({ path: this.$route.query.from });
-                    }, 3000);
+                    }, 1500);
                   }
                 });
             } else if (res.data.statusCode == -1) {
@@ -93,19 +93,19 @@ export default {
 </script>
 
 <style lang="scss">
-#login {
+#register {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  .loginBg {
+  .registerBg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: url("../../assets/login/loginBg.jpg");
+    background: url("../../assets/person/bg.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -114,12 +114,12 @@ export default {
     z-index: -1;
   }
   .RegisterTitle {
-    height: 10vh;
+    height: 8vh;
     display: flex;
     align-items: center;
     position: relative;
     box-sizing: border-box;
-    padding: 0 4vw;
+    padding-right: 4vw;
     color: #fff;
     > span {
       position: absolute;
@@ -127,8 +127,12 @@ export default {
       left: 50%;
       transform: translate(-50%, -50%);
     }
+    .icon-25 {
+      padding: 10px;
+      font-size: 20px;
+    }
   }
-  .loginHeader {
+  .registerHeader {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -140,7 +144,7 @@ export default {
       height: 100px;
     }
   }
-  .loginName {
+  .registerName {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -162,7 +166,7 @@ export default {
       }
     }
   }
-  .loginBtn {
+  .registerBtn {
     width: 80%;
     color: #fff;
     height: 6vh;

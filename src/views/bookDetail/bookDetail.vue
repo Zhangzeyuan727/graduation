@@ -116,7 +116,14 @@
             v-show="reviewItem.content"
             class="reviewContent"
           >{{reviewItem.content}}</div>
-          <button @click="seeAll(index)">展开</button>
+          <div
+            class="ellipsis"
+            v-show="reviewItem.content && reviewItem.isAppear && !reviewItem.isShow"
+          >{{reviewItem.isAppear ? '...' : ''}}</div>
+          <button
+            @click="seeAll(reviewItem, index)"
+            v-if="reviewItem.isAppear"
+          >{{!reviewItem.isShow ? '展开' : '收起'}}</button>
           <!-- </div> -->
         </div>
         <!-- <div style="position:fixed;left:0;bottom:10vh; color:red" @click="goCollect">收藏</div> -->
@@ -157,19 +164,7 @@ export default {
     await this.checkCollect(id);
     this.from = localStorage.getItem("detailFrom");
   },
-  mounted() {
-    //文章元素div
-    let reviewContentArr = document.querySelectorAll(".review .reviewContent");
-    console.log("reviewContentArr", reviewContentArr);
-    //获取元素真正高度
-    for (let i = 0; i < reviewContentArr.length; i++) {
-      this.reviewContentHeight[i] = reviewContentArr[i].offsetHeight;
-    }
-    for (let i = 0; i < reviewContentArr.length; i++) {
-      //给元素定下显示高度
-      reviewContentArr[i].style.height = "54px";
-    }
-  },
+  mounted() {},
   methods: {
     back() {
       this.$router.push({
@@ -191,7 +186,7 @@ export default {
         });
         if (temporaryArr.length > 0) {
           temporaryArr.forEach(item => {
-            if ((item.book.id == id)) {
+            if (item.book.id == id) {
               this.isCollect = true;
             }
           });
@@ -227,6 +222,28 @@ export default {
             });
           }
         });
+
+      let self = this;
+      this.$nextTick(function() {
+        //文章元素div
+        let reviewContentArr = document.querySelectorAll(
+          ".review .reviewContent"
+        );
+        console.log("reviewContentArr", reviewContentArr);
+        //获取元素真正高度
+        for (let i = 0; i < reviewContentArr.length; i++) {
+          self.reviewContentHeight[i] = reviewContentArr[i].offsetHeight;
+        }
+        for (let i = 0; i < reviewContentArr.length; i++) {
+          //给元素定下显示高度
+          if (reviewContentArr[i].offsetHeight > 54) {
+            reviewContentArr[i].style.height = "54px";
+            this.$set(this.bookReview[i], "isAppear", true);
+          } else {
+            this.$set(this.bookReview[i], "isAppear", false);
+          }
+        }
+      });
     },
     //评论
     goReview() {
@@ -316,15 +333,27 @@ export default {
       }
       return fmt;
     },
-    seeAll(index) {
-      //获取显示content的元素
-      let reviewContent = document.querySelector(
-        ".reviewContents" + index + " .reviewContent"
-      );
-      console.log("reviewContents" + index + "reviewContent");
-      //元素变为真正的高度显示
-      reviewContent.style.height = this.reviewContentHeight[index] + "px";
-      console.log(this.reviewContentHeight);
+    //展开
+    seeAll(item, index) {
+      if (!item.isShow) {
+        this.$set(this.bookReview[index], "isShow", true);
+        //获取显示content的元素
+        let reviewContent = document.querySelector(
+          ".reviewContents" + index + " .reviewContent"
+        );
+        console.log("reviewContents " + index + " reviewContent");
+        //元素变为真正的高度显示
+        reviewContent.style.height = this.reviewContentHeight[index] + "px";
+        console.log(this.reviewContentHeight);
+        console.log("item----" + item);
+      } else {
+        this.$set(this.bookReview[index], "isShow", false);
+        let reviewContent = document.querySelector(
+          ".reviewContents" + index + " .reviewContent"
+        );
+        //元素高度变为54px
+        reviewContent.style.height = "54px";
+      }
     }
   }
 };
@@ -481,6 +510,9 @@ export default {
           -webkit-box-orient: vertical; //子元素应该被水平或垂直排列
           -webkit-line-clamp: 3; //3行后显示省略号
           font-size: 13px;
+          color: #666;
+        }
+        .ellipsis {
           color: #666;
         }
       }

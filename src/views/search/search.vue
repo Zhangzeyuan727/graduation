@@ -265,16 +265,14 @@ export default {
       margin: 1vh 4vw;
     }
     .historySearchContent {
-      margin-left: 2vw;
-      padding: 2px 14px;
+      margin-right: 2vw;
+      padding: 3px 14px;
       border: 1px solid #ccc;
       border-radius: 50px;
       display: inline-block;
       font-size: 13px;
       color: #333;
-    }
-    .historySearchContent:first-child {
-      margin-left: 0;
+      margin-bottom: 8px;
     }
     .searchType {
       height: 9vh;

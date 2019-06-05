@@ -6,7 +6,7 @@
         <el-input placeholder="请输入内容" v-model="keyword" class="input-with-select">
           <el-button slot="append" icon="el-icon-search"></el-button>
         </el-input>
-        <i v-show="showIcon" class="iconfont icon-49shurushanchu-2" @click="goDelete"></i>
+        <i v-show="showIcon" class="iconfont icon-iconDeleteitem" @click="goDelete"></i>
       </div>
     </div>
     <div class="content">
@@ -22,7 +22,7 @@
             class="historySearchContent"
             @click="goSelect(item)"
           >
-            <i class="iconfont icon-49shurushanchu-2 item" @click.stop="goDeleteItem(index)"></i>
+            <i class="iconfont icon-iconDeleteitem item" @click.stop="goDeleteItem(index)"></i>
             {{item}}
           </div>
         </div>
@@ -46,7 +46,7 @@
       </template>
       <div v-if="!showSearchType&&!showHistory">
         <div v-for="item in book" :key="item.id" class="searchBook" @click="goDetail(item.id)">
-          <img src="../../assets/bookImg/book-1.jpg" alt>
+          <img :src="'/bookImg'+item.img_url">
           <div class="searchBookContent">
             <span>{{item.name}}</span>
             <span>{{item.author.name}}</span>
@@ -54,7 +54,7 @@
           </div>
         </div>
       </div>
-      <div class="searchNodata" v-if="showNoData&&book.length==0">
+      <div class="searchNodata" v-if="showNoData&&book.length==0&&!showSearchType&&!showHistory">
         <img src="../../assets/person/null.png" alt>
         <div class="null">
           暂无此书籍,
@@ -176,6 +176,7 @@ export default {
     goDelete() {
       this.keyword = "";
       this.showIcon = false;
+      this.showNoData = false;
     },
     goSelect(e) {
       this.keyword = e;
@@ -242,7 +243,7 @@ export default {
   .el-button {
     padding: 12px;
   }
-  .icon-49shurushanchu-2 {
+  .icon-iconDeleteitem {
     font-size: 18px;
     position: absolute;
     top: 0.9vh;

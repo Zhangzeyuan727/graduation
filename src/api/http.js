@@ -3,12 +3,12 @@ import store from '../store.js'
 let SERVER_BASE_URL = ''
 
 
-process.env.NODE_EVN === 'development' ? (SERVER_BASE_URL = 'http://192.168.1.143:3002/') : (SERVER_BASE_URL = '')
+process.env.NODE_EVN === 'development' ? (SERVER_BASE_URL = 'http://127.0.0.1:3002/') : (SERVER_BASE_URL = '')
 
 axios.defaults.withCredentials = true
 // console.log(process.env.NODE_EVN)
 const http = axios.create({
-    baseURL: 'http://192.168.1.143:3002/',
+    baseURL: 'http://127.0.0.1:3002/',
     timeout: 10000,
     headers: {},
 })

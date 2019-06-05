@@ -4,8 +4,8 @@
     <div class="content">
       <div class="featured" v-for="item in featured" v-bind:key="item.id">
         <div class="icon">精品</div>
-        <div class="bg"></div>
-        <img src="../.././assets/bookImg/book-1.jpg">
+        <div class="bg" :style="{backgroundImage: 'url(/bookImg'+item.img_url+')'}"></div>
+        <img :src="'/bookImg'+item.img_url">
         <div class="featured-content">
           <h2>{{item.name}}</h2>
           <p>{{item.author.name}}</p>
@@ -116,7 +116,6 @@ export default {
       .bg {
         width: 100%;
         height: 100%;
-        background-image: url("../.././assets/bookImg/book-1.jpg");
         background-size: 100%;
         -webkit-filter: blur(2px); /* Chrome, Opera 高斯模糊*/
         -moz-filter: blur(2px);

@@ -39,7 +39,7 @@
         </div>
         <div class="books">
           <div class="book" v-for="item in recommend" :key="item.id" @click="goDetail(item.id)">
-            <img src="../.././assets/bookImg/book-1.jpg">
+            <img :src="'/bookImg'+item.img_url">
             <p class="name">{{item.name}}</p>
             <p class="author">{{item.author.name}}</p>
           </div>
@@ -61,7 +61,7 @@
         </div>
         <div class="books">
           <div class="book" v-for="item in news" :key="item.id" @click="goDetail(item.id)">
-            <img src="../.././assets/bookImg/book-1.jpg">
+            <img :src="'/bookImg'+item.img_url">
             <p class="name">{{item.name}}</p>
             <p class="author">{{item.author.name}}</p>
           </div>

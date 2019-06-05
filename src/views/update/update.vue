@@ -9,17 +9,17 @@
     <div class="logo"></div>
     <el-input
       v-model="user.name"
-      placeholder="UserName"
+      placeholder="用户名"
     ></el-input>
     <el-input
       v-model="user.pwd"
       type="password"
-      placeholder="Password"
+      placeholder="密码"
     ></el-input>
     <div
       class="confirm"
       @click="goUpdate"
-    >confirm</div>
+    >确认</div>
   </div>
 </template>
 <script>
@@ -92,6 +92,8 @@ export default {
   flex-direction: column;
   // align-items: center;
   justify-content: center;
+  filter: blur(3px);
+  filter: brightness(80%);
   .updateTitle {
     position: absolute;
     top: 0;

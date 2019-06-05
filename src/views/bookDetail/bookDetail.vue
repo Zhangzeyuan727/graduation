@@ -17,7 +17,7 @@
       v-bind:key="item.id"
     >
       <div class="bookInfo">
-        <img src="../.././assets/bookImg/book-1.jpg" />
+        <img :src="'/bookImg'+item.img_url" />
         <div class="info">
           <p>书名：<span>{{item.name}}</span></p>
           <p>作者：<span>{{item.author.name}}</span></p>
@@ -66,7 +66,7 @@
       </mt-tab-container>
       <div class="description">
         <div class="title">评分&评论</div>
-        <div
+        <!-- <div
           class="score"
           v-for="item in bookDetail"
           v-bind:key="item.score"
@@ -78,7 +78,7 @@
             text-color="#999"
             score-template="{value}"
           ></el-rate>
-        </div>
+        </div> -->
         <div
           v-for="(reviewItem,index) in bookReview"
           :class="'review ' + 'reviewContents' + index"

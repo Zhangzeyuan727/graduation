@@ -18,10 +18,7 @@
           :key="item.id"
           @click="goDetail(item.book.id)"
         >
-          <img
-            src="../.././assets/bookImg/book-1.jpg"
-            alt
-          >
+          <img :src="'/bookImg'+item.book.img_url" alt>
           <p>{{item.book.name}}</p>
           <p>{{item.book.author.name}}</p>
           <p>{{item.book.publishingFirm}}</p>
@@ -142,6 +139,7 @@ export default {
       column-count: 2;
       column-gap: 4%;
       column-width: 45%;
+      padding-bottom: 10px;
       //每一列图片包含层
       .collection {
         margin-bottom: 10px;

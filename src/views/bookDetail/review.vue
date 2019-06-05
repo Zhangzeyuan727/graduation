@@ -4,7 +4,7 @@
       <div>
         <span class="iconfont icon-25" @click="goBack"></span>
         <span class="writeReview">写书评</span>
-      </div>
+      </div> 
       <span :class="isWrite" @click="goCommit">继续</span>
     </div>
     <div class="reviewContentView">
@@ -18,7 +18,7 @@
       <textarea
         class="addReviewContent"
         cols="30"
-        rows="10"
+        rows="28"
         placeholder="添加内容"
         v-model="reviewContent"
       ></textarea>
@@ -161,7 +161,7 @@ export default {
       }
     }
     .addReviewContent {
-      margin: 0 10px;
+      padding: 0 10px;
       margin-top: 10px;
       width: 100%;
     }

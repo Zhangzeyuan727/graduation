@@ -9,7 +9,7 @@
       class="content"
     >
       <div class="book" v-for="item in bookList" v-bind:key="item.id" @click="goDetail(item.id)">
-        <img src="../.././assets/bookImg/book-1.jpg">
+        <img :src="'/bookImg'+item.img_url">
         <div class="bookInfo">
           <p>{{item.name}}</p>
           <p>{{item.author.name}}</p>
